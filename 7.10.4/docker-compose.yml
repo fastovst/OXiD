@@ -3,7 +3,7 @@ services:
   db:
     container_name: OXDB
     environment:
-      MYSQL_ROOT_PASSWORD: 1q2w3e4r5t
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASS}
     image: percona:5.7-centos
     networks: 
       open-xchange:
@@ -19,7 +19,7 @@ services:
       - db
     container_name: OX
     build: ./appsuite
-    image: appsuite:latest
+    image: oxappsuite:{APP_TAG}
     networks:
       open-xchange:
         aliases:
@@ -32,7 +32,7 @@ services:
   web:
     container_name: WEB
     build: ./apache  
-    image: oxapache:latest
+    image: oxapache:${WEB_TAG}
     networks:
       open-xchange:
         aliases:
