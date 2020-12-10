@@ -1,0 +1,284 @@
+.io-ox-settings-main .window-content .rightside .scrollable-pane .io-ox-mailfilter-settings {
+    .settings-list-view {
+        .settings-list-item:not(.disabled) {
+            .list-item-title {
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+.modal-footer .control-group.mailfilter.checkbox {
+    float: left;
+    margin-top: 6px;
+    margin-bottom: 0;
+}
+
+.io-ox-mailfilter-edit {
+
+    .warning { color:  #B94A48; border-color: #B94A48; }
+
+    .action.dropup.open { position:relative; }
+
+    .dropdownlink > [data-toggle="dropdown"] {
+        padding-top: 5px;
+        display: inline-block;
+        &:focus {
+            text-decoration: underline;
+        }
+    }
+
+    .dropdownlink .unsupported {
+        font-style: italic;
+        color: #666666;
+    }
+
+    .dropdown > .dropdown-toggle {
+        &:focus {
+            text-decoration: underline;
+        }
+    }
+
+    a.newcondition, a.newaction {
+        margin-top: 10px;
+        margin-bottom: 25px;
+        display: inline-block;
+    }
+
+    a.folderselect {
+        padding-top: 5px;
+        display: inline-block;
+    }
+
+    legend {
+        display: block;
+        width: 100%;
+        font-size: 14px;
+        font-family: @normal-font-family;
+        font-weight: bold;
+        line-height: 40px;
+        color: #333;
+        border: 0;
+        border-bottom: 1px solid #E5E5E5;
+    }
+
+    li.filter-settings-view {
+        position: relative;
+        background-color: #f5f5f5;
+        padding: 8px 40px 8px 13px;
+        margin: 0 0 7px 0;
+        text-align: left;
+
+        &.has-error {
+            padding: 7px 29px 7px 12px;
+        }
+
+        &.nested {
+            margin-left: 40px;
+        }
+
+        &.nestedrule, &.nested {
+            background-color: #ddd;
+
+            &.has-error {
+                border: solid 1px #a94442;
+            }
+        }
+
+        &.nestedrule .dropdown.add-condition {
+            text-align: right;
+        }
+
+        .flex {
+            display: -webkit-box;
+             display: -webkit-flex;
+             display: -ms-flexbox;
+             display: flex;
+             -webkit-box-align: center;
+             -webkit-align-items: center;
+             -ms-flex-align: center;
+             align-items: center;
+             -webkit-box-pack: center;
+             -webkit-justify-content: center;
+             -ms-flex-pack: center;
+             justify-content: center;
+        }
+
+        .singleline {
+            line-height: 30px;
+        }
+
+        .doubleline {
+            line-height: 63px;
+        }
+
+        .dualdropdown {
+
+            .dropdownlink {
+                text-align: left;
+            }
+
+            label {
+                padding-top: 5px;
+                font-size: 14px;
+                font-weight: normal;
+            }
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .rightalign {
+            text-align: right;
+
+            .flag-dropdown {
+
+                 .dropdown-menu {
+                    text-align: left;
+                    right: 207px;
+                    top: -272px;
+                    position: relative;
+                 }
+
+            }
+
+            .dropdown-menu {
+                text-align: left;
+                left: auto;
+                right: -2px;
+            }
+
+        }
+
+        .dateinput.dateonly {
+
+            .input-group {
+                display: block;
+            }
+
+            .datepicker-day-field {
+                width: 100%;
+            }
+
+        }
+
+        &.nested .dateinput.dateonly {
+
+            .datepicker-day-field {
+                width: 100%;
+            }
+
+        }
+
+        &.nested .dateinput {
+
+            .datepicker-day-field {
+                width: 104px;
+            }
+
+        }
+
+        .dateinput {
+
+            .datepicker-day-field {
+                width: 118px;
+            }
+
+            .timezone {
+                display: none;
+            }
+
+        }
+
+        .dropdownlink, .control-label {
+            text-align: right;
+        }
+
+        .help-block {
+            margin: 0;
+        }
+
+    }
+
+    li.filter-settings-view.warning {
+        color:  #B94A48;
+    }
+
+    .flag-dropdown {
+        width: 30px;
+        height: 24px;
+        margin: 0;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+        border-radius: @border-radius-base;
+        display: inline-block;
+        position: relative;
+        top: 4px;
+    }
+
+    .flag-dropdown ul {
+        text-align: left;
+        font: 14px/20 @normal-font-family;
+        right: -2px;
+        left: auto;
+        // top: 125%;
+        width: 200px;
+    }
+
+    /*.flag-dropdown a {
+        line-height: 24px;
+    }*/
+
+    .flag_1  { background-color: @red; } /* red */
+    .flag_7  { background-color: @orange; } /* orange */
+    .flag_10 { background-color: @yellow; } /* yellow */
+    .flag_6  { background-color: @green-light; } /* light green */
+    .flag_3  { background-color: @green; } /* green */
+    .flag_9  { background-color: @blue-light; } /* light blue */
+    .flag_2  { background-color: @blue; } /* blue */
+    .flag_5  { background-color: @purple; } /* purple (former brown) */
+    .flag_8  { background-color: @pink; } /* pink */
+    .flag_4  { background-color: @gray-light; } /* dark gray */
+
+    button.remove {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 100%;
+        color: #aaa;
+        width: 44px;
+        cursor: pointer;
+
+        &:hover, &:focus {
+            background-color: @trash-icon-hover-background;
+            text-decoration: none;
+
+            i {
+                color: @trash-icon-hover-color;
+            }
+        }
+
+        i {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: -7px 0 0 -6px;
+            color: #aaa;
+        }
+    }
+
+    .line {
+        margin-top: 25px;
+        margin-bottom: 20px;
+
+        .dropdown-toggle {
+            padding-top: 0;
+        }
+    }
+
+    .no-padding-left {
+        padding-left: 0;
+    }
+
+}

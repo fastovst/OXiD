@@ -1,0 +1,8 @@
+{
+    "namespace": "io.ox/core/main",
+    "title": "Upsell drive advertisement",
+    "settings": false,
+    "index": 100,
+    "path": "plugins/upsell/drive/main",
+    "requires": "upsell"
+}

@@ -1,0 +1,1 @@
+define("io.ox/files/actions/lock-unlock",["io.ox/files/api"],function(o){"use strict";return{lock:function(n){o.lock(n)},unlock:function(n){o.unlock(n)}}});

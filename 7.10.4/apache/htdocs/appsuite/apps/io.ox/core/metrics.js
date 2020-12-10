@@ -1,0 +1,1 @@
+define("io.ox/core/metrics",[],function(){"use strict";var t={getTime:function(){return _.now()-ox.t0},formatTimestamp:function(t){return(Math.ceil(t/100)/10).toFixed(2)+"s"},debug:function(){ox.on("login core:load core:ready app:start app:ready app:stop",function(){var e=t.formatTimestamp(t.getTime());console.log("Event",e)})}};return t});

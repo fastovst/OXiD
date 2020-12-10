@@ -1,0 +1,1 @@
+define("plugins/portal/upsellads/settings/model",["settings!io.ox/contacts"],function(t){"use strict";return Backbone.Model.extend({initialize:function(){},save:function(){t.save(this.attributes)},destroy:function(){}})});

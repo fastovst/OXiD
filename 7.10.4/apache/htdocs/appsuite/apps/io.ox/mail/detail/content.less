@@ -1,0 +1,274 @@
+/**
+ * This work is provided under the terms of the CREATIVE COMMONS PUBLIC
+ * LICENSE. This work is protected by copyright and/or other applicable
+ * law. Any use of the work other than as authorized under this license
+ * or copyright law is prohibited.
+ *
+ * http://creativecommons.org/licenses/by-nc-sa/2.5/
+ *
+ * © 2016 OX Software GmbH, Germany. info@open-xchange.com
+ *
+ * @author Matthias Biggeleben <matthias.biggeleben@open-xchange.com>
+ */
+
+body {
+    margin: 0;
+    padding: 0;
+    // was introduced during the iframe resizing refactoring
+    // changing this can lead to a lot of side effects
+    // note: apps with the 'simple' flag (portal) will overwrite this to allow scrolling on mobile
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+}
+
+.mail-detail-content {
+
+    box-sizing: border-box;
+
+    font-family: @normal-font-family;
+    font-size: 13px;
+    font-weight: normal;
+    font-feature-settings: "liga" 0;
+
+    // Max-width does not work here, see Bug #24505
+    // max-width: 1000px;
+    width: 100%;
+
+    position: relative;
+
+    // ios scrolling bug for fixed table layouts (no x-overflow possible)
+    .ios.smartphone & {
+        -webkit-overflow-scrolling: touch;
+        overflow-x: auto;
+    }
+
+    .smartphone & {
+        font-size: @sm-mail-detail-font-size;
+    }
+    // use display: table to cover padding/margin/float issues at the bottom
+    //display: table;
+
+    // TODO: remove / temp. fix for sanitized HTML
+    padding: 0;
+    & > div > [class$="-content"] { padding: 0; }
+
+    &.plain-text {
+        font-family: @normal-font-family;
+        white-space: pre-wrap;
+
+        blockquote { white-space:normal; }
+    }
+
+    &.fixed-width-font, &.fixed-width-font.plain-text,
+    &.fixed-width-font blockquote,
+    &.fixed-width-font.plain-text blockquote,
+    &.fixed-width-font blockquote p,
+    &.fixed-width-font.plain-text blockquote p {
+        font-family: monospace;
+        -webkit-font-feature-settings: normal;
+        font-feature-settings: normal;
+    }
+
+    &.simple-mail {
+        max-width: 700px;
+        &.big-screen {
+            max-width: 100%;
+        }
+        img {
+            max-width: 100%;
+            height: auto!important;
+        }
+    }
+
+    // since we're in an iframe we don't longer need to reset boostrap stuff (changeed the following lines due to bug 58660)
+    img[src=""] {
+        // Visual indicator for blocked images
+        background-color: rgba(0,0,0,.1);
+        background-image: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(255,255,255,.5) 20px, rgba(255,255,255,.5) 40px);
+    }
+
+    p {
+        font-family: @normal-font-family;
+        margin: 0 0 1em 0;
+    }
+
+    @base: 14px;
+    h1 { font-size: 2.00 * @base; }
+    h2 { font-size: 1.50 * @base; }
+    h3 { font-size: 1.17 * @base; }
+    h4 { font-size: 1.00 * @base; }
+    h5 { font-size: 0.83 * @base; }
+    h6 { font-size: 0.67 * @base; }
+
+    a {
+        // fix long links
+        word-break: break-word;
+        text-decoration: none;
+        color: inherit;
+        &:hover { color: inherit; }
+    }
+
+    a[href] {
+        color: @link-color;
+        text-decoration: underline;
+    }
+
+    th {
+        padding: @table-cell-padding;
+        text-align: center;
+    }
+
+    th[align="left"] {
+        // special case, see bug 37082
+        text-align: left;
+    }
+
+    // see Bug 24995 - Strange boxes shown for invitation mails
+    .calendar-detail .label {
+        display: block;
+        text-shadow: none;
+        font-weight: normal;
+        background-color: transparent;
+    }
+
+    img.emoji-softbank { margin: 0 2px; }
+
+    // This should not be used because it causes the chrome to be very slow
+    // See 36097 - This issue may have to be revisited, see also "breakableHTML"
+    // div {
+    //     word-break: break-word;
+    // }
+
+    pre {
+        // for firefox
+        word-break: keep-all;
+        word-break: initial;
+        white-space: pre-wrap;
+        background-color: transparent;
+        border: 0 none;
+        border-radius: 0;
+    }
+
+    table {
+        font-family: @normal-font-family;
+        font-size: 13px;
+        font-weight: normal;
+        font-feature-settings: "liga" 0;
+        line-height: normal;
+        border-collapse: collapse;
+    }
+
+    ul, ol {
+        padding: 0;
+        padding-left: 16px;
+        margin: 1em 0 1em 24px;
+    }
+
+    ul       { list-style-type: disc;   }
+    ul ul    { list-style-type: circle; }
+    ul ul ul { list-style-type: square; }
+
+    li {
+        line-height: normal;
+        margin-bottom: 0.5em;
+    }
+
+    blockquote {
+        color: #555;
+        font-size: 13px;
+        border-left: 2px solid #ddd;
+        padding: 0 0 0 16px;
+        margin: 16px 0 16px 0;
+
+        p { font-size: 13px; }
+
+        blockquote {
+            border-color: @brand-primary;
+            margin: 8px 0;
+        }
+    }
+
+    .blockquote(@color) {
+        color: @color !important;
+        border-left: 2px solid @color;
+        a[href]:not(.deep-link) { color: @color; }
+        a[href]:not(.deep-link):hover { color: darken(@color, 10%); }
+    }
+
+    &.colorQuoted {
+        blockquote blockquote                                   { .blockquote(@brand-primary); }
+        blockquote blockquote blockquote                        { .blockquote(#DD0880); }
+        blockquote blockquote blockquote blockquote             { .blockquote(#8F09C7); }
+        blockquote blockquote blockquote blockquote blockquote  { .blockquote(#767676);    }
+    }
+
+    &.disable-links a[href] {
+        color: #aaa !important;;
+        text-decoration: line-through !important;;
+        cursor: default !important;;
+        pointer-events: none !important;;
+    }
+
+    .blockquote-toggle {
+        color: #767676;
+        font-size: 13px;
+        padding-left: 56px;
+        margin: 16px 0;
+        min-height: 16px;
+        // fix long links
+        word-break: break-word;
+
+        button.bqt {
+            color: #696969;
+            background-color: #eee;
+            padding: 1px 10px;
+            display: inline-block;
+            font-size: 14px;
+            line-height: 16px;
+            cursor: pointer;
+            outline: 0;
+            position: absolute;
+            left: 0;
+            border: 0;
+
+            &:hover, &:focus {
+                color: #fff;
+                background-color: @link-color;
+                text-decoration: none;
+            }
+        }
+    }
+
+    .max-size-warning {
+        color: #767676;
+        padding: 16px 16px 0 16px;
+        border-top: 1px solid #ddd;
+    }
+
+    a.deep-link {
+        color: white;
+        background-color: @btn-primary-bg;
+        text-decoration: none;
+        font-size: 90%;
+        font-weight: bold;
+        font-family: @normal-font-family !important;
+        padding: 0.10em 8px;
+        border-radius: 3px;
+        &:hover, &:focus, &:active {
+            color: white;
+            background-color: darken(@btn-primary-bg, 10%);
+        }
+    }
+
+    // simple workaround in case people try to print the entire window (see bug 50483)
+    @media print {
+        .collapsed-blockquote { display: block !important; }
+        .blockquote-toggle { display: none !important; }
+    }
+
+    & > div[id*="ox-"] {
+        & > h1, & > h2, & > h3, & > h4, & > h5 {
+            margin-top: 0;
+        }
+    }
+}

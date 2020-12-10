@@ -1,0 +1,1 @@
+define("io.ox/contacts/settings/defaults",function(){"use strict";return{showAdmin:!1,fullNameFormat:"auto",startInGlobalAddressbook:!0,mapService:"google",contactsPrintLayout:"simple"}});

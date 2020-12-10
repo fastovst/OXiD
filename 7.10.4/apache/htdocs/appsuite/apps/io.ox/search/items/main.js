@@ -1,0 +1,1 @@
+define("io.ox/search/items/main",["io.ox/search/items/collection","io.ox/search/items/view"],function(e,t){"use strict";return{create:function(){var n=new e,r=new t({collection:n});return n.on("reset set",function(){n.trigger("needs-redraw")}),_.extend(n,{render:r.render,empty:function(){return delete this.timestamp,this.length&&this.reset(),n}})}}});

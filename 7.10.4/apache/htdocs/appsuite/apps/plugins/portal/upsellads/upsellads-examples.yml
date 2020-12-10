@@ -1,0 +1,95 @@
+io.ox/portal//widgets/protected:
+  upsellads_0:
+    plugin: "plugins/portal/upsellads/register"
+    type: "upsellads"
+    index: 0
+    changeable:
+      index: true
+    props:
+      ad: "openexchangeAdvertisement"
+
+plugins/upsell//driveAd: "<div class='upsell-drive-ad' style='width: 300px'><img src='https://appsuite-dev.open-xchange.com/publications/files/1/upsell-images/150937/current?secret=bc9c99a0123f5e4733a64f3b34368ab2' alt='' style='display:inline-block;' /><span style='float:right; padding-top: 5px;'>Don't run out of space, <br/>upgrade your quota now!</span></div>"
+
+plugins/upsell//bubbles:
+  skipFirstLogin: true
+  repeatInMilliseconds: 900000
+  repeatPerLogins: 1
+  bubbles:
+    en_US:
+      bubble1:
+        app: 'io.ox/portal'
+        content: "A single view of your whole digital world, but did you know you could add many more widgets to your portal view? Simply press Add Widget and complete your custom portal view."
+        startDate: '2013-07-01'
+        endDate: '2019-06-31'
+      bubble2:
+        app: 'io.ox/tasks'
+        content: "Time management is never easy. Upgrade to Group Calendars and instantly share calendars and get access to the easiest scheduler ever made."
+      bubble3:
+        app: 'io.ox/calendar'
+        content: "Need to share calendars, want to maintain common calendars, want an easy way to find out when people are free? Just upgrade to Group Calendars and instantly share calendars and get access to the easiest scheduler ever made."
+      bubble4:
+        app: 'io.ox/files'
+        content: "Take a photo and instantly have it on your laptop? Work on a document at work and have it instantly on your home computer? Synchronise folders on computers, phones and tablets with OX Drive. Try it and you will wonder how you lived without it. "
+      bubble5:
+        app: 'io.ox/mail'
+        content: "Keep track of your emails from any device natively: Upgrade to Mobile Synchronisation and all your emails, appointments, tasks and contacts will appear on all your devices. Lose your device: No problem! Simply sync your new device and you are back in action again."
+      bubble6:
+        app: 'io.ox/contacts'
+        content: "Different address books on different devices? If you lose your phone or your computer breaks what would happen? Upgrade to Mobile Synchronisation and all your contacts will be synchronised to all your devices. Lose a device or get a new one: No problem."
+
+plugins/upsell//ads:
+  delayInMilliseconds: 10000
+  openexchangeAdvertisement:
+    upsellWizard: "shop"
+    slides:
+      en_US:
+        slide1:
+          type: text-bottom
+          image: 'https://appsuite-dev.open-xchange.com/publications/files/1/upsell-images/149623/current?secret=bc9c99a0123f5e4733a64f3b34368ab2'
+          text: <p>Group Calendars lets you take control of your life and give it order.</p><p>For business or your personal life this calendar is lets you plan the weeks ahead. Share calendars with others and confirm everyone's availability before arranging dates.</p>"
+        slide2:
+          type: text-top
+          image: 'https://appsuite-dev.open-xchange.com/publications/files/1/upsell-images/149660/current?secret=bc9c99a0123f5e4733a64f3b34368ab2'
+          text: "<p>Today everyone has more than one device with different information on each.</p><p>Mobile Sync lets you synchronise all your information between all your devices regardless of type and easily.</p>"
+        slide3:
+          type: text-only
+          text: "<p>Today everyone has more than one device: Business phone, personal phone, tablet or laptop. The problem is your data is spread between them!</p><p>Mobile Sync lets you seamlessly synchronise all your information (contacts, calendar appointments, emails etc.) between all your devices regardless of type.</p><p>This is not just convenient, but if your device gets damaged of lost, it is a breeze to restore everything without any hassle.</p>"
+        slide4:
+          type: image-only
+          image: "https://appsuite-dev.open-xchange.com/publications/files/1/upsell-images/149627/current?secret=bc9c99a0123f5e4733a64f3b34368ab2"
+        slide5:
+          type: text-only
+          text: "<p>Keeping track of your appointments is one thing, but organising your life is something else. The Group Calendar lets you take control of your life and give it order.</p><p>This calendar is lets you plan the days and weeks ahead. Share calendars with others and confirm everyone's availability before you even arrange a meeting.</p>"
+
+plugins/upsell//shop:
+  priceFormat: '$%sUSD'
+  target: 'http://localhost/order-confirmation?cartContents=OXUPSELLCART&context=OXUPSELLCONTEXT&user=OXUPSELLUSER'
+  disclaimer:
+    en_US: '<p><strong>Disclaimer:</strong> You agree that you will pay for all products you purchase through the Services, and that we may charge your payment method for any products purchased and for any additional amounts (including any taxes and late fees, as applicable) that may be accrued by or in connection with your Account. YOU ARE RESPONSIBLE FOR THE TIMELY PAYMENT OF ALL FEES AND FOR PROVIDING US WITH A VALID PAYMENT METHOD FOR PAYMENT OF ALL FEES. For details of how purchases are billed please visit support.us.com/legal.</p><p>Your total price will include the price of the product plus any applicable sales tax; such sales tax is based on the bill-to address and the sales tax rate in effect at the time you download the product. We will charge tax only in states where digital goods are taxable.</p><p>All sales and rentals of products are final.</p><p>Prices for products offered via this service may change at any time, and this service does not provide price protection or refunds in the event of a price reduction or promotional offering.</p><p>If a product becomes unavailable following a transaction but prior to download, your sole remedy is a refund. If technical problems prevent or unreasonably delay delivery of your product, your exclusive and sole remedy is either replacement or refund of the price paid, as determined by us.</p>'
+  products:
+    en_US:
+      p0:
+        image: 'https://appsuite-dev.open-xchange.com/publications/files/1/upsell-images/149630/current?secret=bc9c99a0123f5e4733a64f3b34368ab2'
+        title: 'All - special offer'
+        price: 99
+        description: '<p>This Special Offer is only for a limited time. This is your chance to get the whole communication suite of products at a special monthly rate of $99/month.</p><p>This offer is only available this month and includes the following applications:</p><ul><li>Group Calendar</li><li>Mobile Synchronisation</li><li>Outlook Connector</li><li>File Synchronisation (OX Drive)</li></ul><p>Note that all orders must be placed this month and a minimum of 12 month subscription must be signed up for.</p>'
+      p1:
+        image: 'https://appsuite-dev.open-xchange.com/publications/files/1/upsell-images/149624/current?secret=bc9c99a0123f5e4733a64f3b34368ab2'
+        title: 'Group Calendar'
+        price: 99
+        description: "<p>Keeping track of your appointments is one thing, but organising your life is something else. The Group Calendar lets you take control of your life and give it order.</p><p>Whether using this for your business or your personal life this calendar is lets you plan the days and weeks ahead. Share calendars with others and confirm everyone's availability before you even arrange a meeting.</p><p>This versatile scheduler can be yours at only $99/month. Buy it now and take control of your life.</p>"
+      p2:
+        image: 'https://appsuite-dev.open-xchange.com/publications/files/1/upsell-images/149625/current?secret=bc9c99a0123f5e4733a64f3b34368ab2'
+        title: 'Mobile Sync'
+        price: 99
+        description: '<p>Today everyone has more than one device, be it business phone, personal phone, tablet or laptop. The problem is that some of your devices have some data on them while others have other.</p><p>The Mobile Sync lets you synchronise all your information (contacts, calendar appointments, emails etc.) between all your devices regardless of type or operating system. With the Mobile Sync it is now easy to synchronise between Apple, Microsoft and Android devices seamlessly.</p><p>This is not just convenient , but if your device gets damaged of lost, it is a breeze to restore everything without any hassle.</p><p>The Mobile Sync is only $99/month: How much is a trouble free life worth to you.</p>'
+      p3:
+        image: 'https://appsuite-dev.open-xchange.com/publications/files/1/upsell-images/149628/current?secret=bc9c99a0123f5e4733a64f3b34368ab2'
+        title: 'Outlook Connector'
+        price: 99
+        description: '<p>We understand that even today people want to use off-line client solutions like Microsoft Outlook. Many offices still use Outlook as a standard for their staff.</p><p>Just because you use our solution does not mean you you can not still use products like Outlook. For a small fee of $99 per month you can connect your Outlook to our service. This gives you connectivity in the office as well as flexibility out of the office too.</p><p>Keep all your lives working together</p>'
+      p4:
+        image: 'https://appsuite-dev.open-xchange.com/publications/files/1/upsell-images/149629/current?secret=bc9c99a0123f5e4733a64f3b34368ab2'
+        title: 'File Sync (OX Drive)'
+        price: 99
+        description: '<p>Synchronisation of files can sometimes be a problem. Some solutions are not as easy as they claim, others kill your device as they sync, but you still use them.</p><p>Sharing photos from you phone to your laptop is vital; sharing documents between colleagues leads to better efficiency and letting your other see your holiday snaps as you take them leads to a more fun and enjoyable life.</p><p>For only $99 get OX Drive and start sharing your files. It is designed to be mobile device friendly and will not kill your battery of your bandwidth. It synchronises your files intelligently and always give you the best result.</p><p>If you are already signed up to a storage or sharing solution OX Drive can simply add to it giving you a much batter extended experience.</p><p>Get your File Sync now.</p>'

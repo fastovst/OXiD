@@ -1,0 +1,1 @@
+define("io.ox/mail/settings/compose/register",["io.ox/core/extensions","gettext!io.ox/mail"],function(i,o){"use strict";i.point("io.ox/settings/pane/main/io.ox/mail").extend({id:"io.ox/mail/settings/compose",title:o("Compose"),ref:"io.ox/mail/settings/compose",index:100})});

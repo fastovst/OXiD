@@ -1,0 +1,50 @@
+version: "3.8"
+services:
+  db:
+    container_name: OXDB
+    environment:
+      MYSQL_ROOT_PASSWORD: 1q2w3e4r5t
+    image: percona:5.7-centos
+    networks: 
+      open-xchange:
+        aliases:
+          - oxdb
+        ipv4_address: 192.168.100.10
+    ports:
+      - "3306:3306"
+    volumes:
+      - "db_data:/var/lib/mysql/"
+  app:
+    depends_on:
+      - db
+    container_name: OX
+    build: ./appsuite
+    image: appsuite:latest
+    networks:
+      open-xchange:
+        aliases:
+          - ox
+        ipv4_address: 192.168.100.20
+    ports:
+      - "8009:8009"
+    volumes:
+      - "ox_configs:/opt/open-xchange/etc"
+  web:
+    container_name: WEB
+    build: ./apache  
+    image: oxapache:latest
+    networks:
+      open-xchange:
+        aliases:
+          - web
+        ipv4_address: 192.168.100.30
+    ports:
+      - "8080:80"
+networks:
+  open-xchange:
+    ipam:
+      config:
+        - subnet: 192.168.100.0/24
+volumes:
+  db_data:
+  ox_configs:

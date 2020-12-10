@@ -1,0 +1,161 @@
+/**
+ * This work is provided under the terms of the CREATIVE COMMONS PUBLIC
+ * LICENSE. This work is protected by copyright and/or other applicable
+ * law. Any use of the work other than as authorized under this license
+ * or copyright law is prohibited.
+ *
+ * http://creativecommons.org/licenses/by-nc-sa/2.5/
+ *
+ * © 2016 OX Software GmbH, Germany. info@open-xchange.com
+ *
+ * @author Alexander Quast <alexander.quast@open-xchange.com>
+ */
+
+.chronos-item {
+
+    .search-view .list-item-content.calendar .date { display: block; }
+
+    .vgrid.editable .vgrid-cell { padding-left: 48px; }
+
+    &.visible-selection.has-focus .list-item.selected * { color: #fff!important; }
+
+    .notification.empty {
+        text-align: center;
+        pointer-events: none;
+    }
+
+    .list-item {
+        padding-bottom: 0;
+        padding-top: 0;
+        border: none;
+    }
+
+    .tail {
+        padding-top: 1em;
+        padding-bottom: 1em;
+        text-align: center;
+    }
+
+    .busy-indicator {
+        padding: 0;
+        height: 46px;
+    }
+
+    .list-item.list-item-label {
+        font-weight: 300;
+        font-size: 18px;
+        line-height: 21px;
+        color: #3c73aa;
+        padding: 14px 13px 7px 48px;;
+    }
+
+    .list-item-checkmark { margin-top: 10px; }
+
+    .list-item-content {
+
+        .location {
+            display: inline-block;
+            width: 100%;
+        }
+
+        &.calendar {
+            height: 70px; /* = 3 rows */
+            font-size: 13px;
+            padding: 10px 0px;
+            color: #333;
+
+            * {
+                .ellipsis();
+            }
+
+            .contentContainer { padding-left: 10px; }
+
+            .private {
+                color: #555;
+                float: right;
+                display: inline-block;
+            }
+
+            .shown_as.label-info {
+                width: 1em;
+                height: 1em;
+                float: right;
+                margin-left: 1em;
+                border-radius: @border-radius-base;
+            }
+
+            &.declined .title,
+            &.declined .location { text-decoration: line-through; }
+
+            .private-flag {
+                color: #AAA;
+                float: left;
+                font-size: 13pt;
+                margin-right: 2px;
+            }
+
+            .title {
+                font-weight: 700;
+                white-space: pre;
+            }
+
+            .time {
+                position: relative;
+                width: 80px;
+                height: 100%;
+                float: left;
+
+                .fragment {
+                    text-overflow: clip;
+                    margin-right: 5px;
+                    color: #555;
+                }
+
+            }
+
+            .time > .color-label {
+                content: "";
+                width: 20px;
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+            }
+
+            .date { display: none; }
+
+            &.reserved .custom_shown_as > .color-label { background-color: @appointment-reserved; }
+            &.free     .custom_shown_as > .color-label { background-color: @appointment-free; }
+            &.declined .custom_shown_as > .color-label { background-color: @appointment-declined; }
+        }
+    }
+}
+
+.calendar-list-view {
+    .folder-info {
+        text-align: center;
+        margin: 0 30px;
+        .ellipsis();
+    }
+
+    .folder-count {
+        font-size: 13px;
+        color: #767676;
+    }
+}
+
+.calendar-list-view .list-item-content.free .custom_shown_as.white > .color-label {
+    @color-label-bg-light: rgba(255, 255, 255, 0.2);
+    background-image: -webkit-repeating-linear-gradient(-45deg, transparent, transparent 25px, @color-label-bg-light 25px, @color-label-bg-light 50px);
+    background-image: -o-repeating-linear-gradient(-45deg, transparent, transparent 25px, @color-label-bg-light 25px, @color-label-bg-light 50px);
+    background-image: -moz-repeating-linear-gradient(-45deg, transparent, transparent 25px, @color-label-bg-light 25px, @color-label-bg-light 50px);
+    background-image: repeating-linear-gradient(-45deg, transparent, transparent 25px, @color-label-bg-light 25px, @color-label-bg-light 50px);
+}
+
+.calendar-list-view .list-item-content.free .custom_shown_as.black > .color-label {
+    @color-label-bg-dark: rgba(0, 0, 0, 0.1);
+    background-image: -webkit-repeating-linear-gradient(-45deg, transparent, transparent 25px, @color-label-bg-dark 25px, @color-label-bg-dark 50px);
+    background-image: -o-repeating-linear-gradient(-45deg, transparent, transparent 25px, @color-label-bg-dark 25px, @color-label-bg-dark 50px);
+    background-image: -moz-repeating-linear-gradient(-45deg, transparent, transparent 25px, @color-label-bg-dark 25px, @color-label-bg-dark 50px);
+    background-image: repeating-linear-gradient(-45deg, transparent, transparent 25px, @color-label-bg-dark 25px, @color-label-bg-dark 50px);
+}

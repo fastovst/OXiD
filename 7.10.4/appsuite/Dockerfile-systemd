@@ -1,0 +1,29 @@
+FROM centos:7
+
+#ENV container docker
+
+RUN yum -y update; yum clean all
+RUN (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == systemd-tmpfiles-setup.service ] || rm -f $i; done); \
+rm -f /lib/systemd/system/multi-user.target.wants/*;\
+rm -f /etc/systemd/system/*.wants/*;\
+rm -f /lib/systemd/system/local-fs.target.wants/*; \
+rm -f /lib/systemd/system/sockets.target.wants/*udev*; \
+rm -f /lib/systemd/system/sockets.target.wants/*initctl*; \
+rm -f /lib/systemd/system/basic.target.wants/*;\
+rm -f /lib/systemd/system/anaconda.target.wants/*
+
+COPY configs/ox.repo /etc/yum.repos.d/ox.repo
+COPY configs/ntp.conf /etc/ntp.conf
+
+RUN rpm --import http://software.open-xchange.com/oxbuildkey.pub
+
+RUN yum install -y ntp open-xchange open-xchange-authentication-database \
+    open-xchange-grizzly open-xchange-admin open-xchange-appsuite \
+    open-xchange-appsuite-backend open-xchange-appsuite-manifest
+
+RUN systemctl enable open-xchange
+
+WORKDIR /opt/open-xchange
+
+VOLUME [ "/sys/fs/cgroup" ]
+CMD ["/usr/sbin/init"]

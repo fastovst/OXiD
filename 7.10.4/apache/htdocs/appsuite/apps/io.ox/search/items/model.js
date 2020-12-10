@@ -1,0 +1,1 @@
+define("io.ox/search/items/model",["io.ox/backbone/basicModel"],function(e){"use strict";return e.extend({model:{defaults:{id:"",folder:"",application:"",data:{}}}})});

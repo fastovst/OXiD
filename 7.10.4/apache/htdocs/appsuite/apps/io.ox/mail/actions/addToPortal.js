@@ -1,0 +1,1 @@
+define("io.ox/mail/actions/addToPortal",["io.ox/core/notifications","io.ox/portal/widgets","gettext!io.ox/mail"],function(i,t,e){"use strict";return function(o){var a=o.first();t.add("stickymail",{plugin:"mail",props:$.extend({id:a.id,folder_id:a.folder_id,title:a.subject?a.subject:e("No subject")},a.parent||{})}),i.yell("success",e("This email has been added to the portal"))}});

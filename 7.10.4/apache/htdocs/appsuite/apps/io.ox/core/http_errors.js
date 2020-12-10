@@ -1,0 +1,1 @@
+define("io.ox/core/http_errors",["io.ox/core/http","gettext!io.ox/core"],function(e,o){"use strict";e.messages={generic:o("An unknown error occurred"),noserver:o("An unknown error occurred"),offline:o("Cannot connect to server. Please check your connection.")}});

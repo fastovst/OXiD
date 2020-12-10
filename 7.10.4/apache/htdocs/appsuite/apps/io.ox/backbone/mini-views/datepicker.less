@@ -1,0 +1,70 @@
+/**
+ * This work is provided under the terms of the CREATIVE COMMONS PUBLIC
+ * LICENSE. This work is protected by copyright and/or other applicable
+ * law. Any use of the work other than as authorized under this license
+ * or copyright law is prohibited.
+ *
+ * http://creativecommons.org/licenses/by-nc-sa/2.5/
+ *
+ * © 2016 OX Software GmbH, Germany. info@open-xchange.com
+ *
+ * @author Christoph Hellweg <christoph.hellweg@open-xchange.com>
+ */
+
+.dateinput {
+    input { text-align: center; }
+
+    .time-field {
+        width: 100px;
+        border-left: none;
+    }
+
+    .combobox {
+        display: inline;
+    }
+
+    .typeahead.calendaredit {
+        height: 200px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        min-width: 85px;
+        a {
+            text-align: right;
+            padding: 3px 15px 3px 3px;
+        }
+    }
+
+    &.dateonly .datepicker-day-field { border-radius: @border-radius-base; }
+
+    .datepicker-day-field { width: 120px; }
+
+    // in mobile mode only May be enabled on tablets as well, so separate from media query
+    &.mobile-mode .datepicker-day-field {
+        width: 100%;
+        border-radius: @border-radius-base;
+    }
+
+    .timezone {
+        width: auto;
+        font-size: 12px;
+
+        &.btn { cursor: pointer; height: 30px;}
+
+        &:hover, &:active, &:focus {
+            color: #555;
+            text-decoration: none;
+        }
+    }
+}
+
+/* Mobile */
+@media all and (max-width: @smartphone-breakpoint), all and (max-device-width: @smartphone-breakpoint) {
+    .dateinput {
+
+        .input-group { display: block; }
+
+        .datepicker-day-field {
+            padding: 4px 6px;
+        }
+    }
+}

@@ -1,0 +1,1 @@
+define("io.ox/guard/auth/authorizer",["io.ox/core/capabilities"],function(e){"use strict";var r={};return r.authorize=function(r,t){var u=$.Deferred();return e.has("guard")?require(["oxguard/auth"],function(e){e.authorize(r,t).then(function(e){u.resolve(e)},function(e){u.reject(e)})}):u.reject(),u},r});

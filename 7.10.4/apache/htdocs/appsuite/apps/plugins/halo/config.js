@@ -1,0 +1,1 @@
+define("plugins/halo/config",function(){"use strict";return{interpret:function(n,r){if(!n)return r;var i=[],t={};return _(r).each(function(n){t[n]=!0}),(n=_(n).map(function(n){return n})).sort(function(n,r){return n.position-r.position}),_(n).each(function(n){t[n.provider]&&n.enabled&&i.push(n.provider)}),i}}});

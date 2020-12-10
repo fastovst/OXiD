@@ -1,0 +1,455 @@
+/**
+ * This work is provided under the terms of the CREATIVE COMMONS PUBLIC
+ * LICENSE. This work is protected by copyright and/or other applicable
+ * law. Any use of the work other than as authorized under this license
+ * or copyright law is prohibited.
+ *
+ * http://creativecommons.org/licenses/by-nc-sa/2.5/
+ *
+ * © 2016 OX Software GmbH, Germany. info@open-xchange.com
+ *
+ * @author Matthias Biggeleben <matthias.biggeleben@open-xchange.com>
+ * @author David Bauer <david.bauer@open-xchange.com>
+ */
+
+.toolbar-button {
+    font-size: 22px;
+    line-height: 52px;
+    margin: 4px 0 8px 0;
+    display: block;
+
+    ul {
+        font-size: 14px;
+        line-height: 20px;
+    }
+
+    & > a {
+        width: 50px;
+        text-align: center;
+        height: 52px;
+        display: inline-block;
+        outline: 0;
+
+        i {
+            color: @toolbar-button-color;
+
+            &.accent-color {
+                background-color: @toolbar-button-accent;
+                color: @white;
+                border: 2px solid @toolbar-button-accent;
+                width: 29px;
+                border-radius: @border-radius-base;
+                padding-top: 2px;
+                display: inline-block;
+            }
+        }
+
+        &:hover {
+            text-decoration:none !important; // IE 10 needs important otherwise it will be ignored See: #27913
+
+            i {
+                color: darken(@toolbar-button-color, 20%);
+                text-decoration: none;
+
+                &.accent-color {
+                    background-color: darken(@toolbar-button-accent, 10%);
+                    border-color: darken(@toolbar-button-accent, 10%);
+                }
+            }
+        }
+        // brackets needed or addition will not perform correctly. => Rule is ignored
+        @media (min-width: (@smartphone-breakpoint + 1)), (min-device-width: (@smartphone-breakpoint + 1)) {
+            &:focus {
+                color: darken(@toolbar-button-color, 20%);
+                text-decoration: none;
+                background-color: @toolbar-focus-color;
+
+                i {
+                    color: white;
+                    text-decoration: none;
+
+                    &.accent-color {
+                        background-color: @toolbar-focus-color;
+                        border-color: @toolbar-focus-color;
+                    }
+                }
+            }
+        }
+
+        &.disabled i {
+            color: #eee;
+            cursor: default;
+
+            &.accent-color {
+                background-color: #fff;
+                border-color: #fff;
+            }
+        }
+    }
+}
+
+//
+// Classic and mobile toolbars
+//
+
+.mobile-navbar {
+    text-align: center;
+    font-size: 16px;
+
+    .navbar-action {
+        position: absolute;
+        top: 14px;
+        max-width: 24%;
+
+        .ellipsis();
+
+        &.left {
+            left: 10px;
+            .fa-chevron-left {
+                text-align: left;
+                width: 15px;
+            }
+        }
+
+        a, a:hover {
+            color: @link-color;
+            transition: opacity 180ms;
+            opacity: 1;
+            text-decoration: none;
+            .tapped & {
+                opacity: .5;
+            }
+        }
+
+        &.right {
+            .fa-chevron-right {
+                margin-left: 4px;
+            }
+            right: 15px;
+        }
+    }
+
+    .navbar-title {
+        .ellipsis();
+        margin: 14px 24%;
+        font-weight: 500;
+    }
+}
+
+.mobile-toolbar {
+    position: fixed;
+    bottom: 0;
+    background-color: #fff;
+    height: @mobile-toolbar-height;
+    z-index: 10;
+    margin: 0;
+    border-top: 1px solid #ccc;
+    width: 100%;
+
+    .list-unstyled > li, .io-ox-action-link.mobile-toolbar-action {
+        display: inline-block;
+        font-size: 22px;
+        line-height: @mobile-toolbar-height;
+        width: 19.9%;
+        height: @mobile-toolbar-height;
+        text-align: center;
+        margin: 0;
+        vertical-align: middle;
+        &.text-button {
+            .ellipsis();
+            font-size: 18px;
+        }
+    }
+
+    .inline-toolbar {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: row;
+        height: 48px;
+        > li {
+            width: 20%;
+            height: 100%;
+            margin: 0;
+
+            > a {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+
+                &:focus:not(.disabled) {
+                    background: transparent;
+                    color: @link-color;
+                }
+
+                &.disabled {
+                    text-decoration: none;
+
+                    &:focus {
+                        background: transparent;
+                    }
+                }
+
+            }
+        }
+        i.fa {
+            font-size: 22px;
+        }
+        .dropdown { line-height: auto; }
+    }
+}
+
+.smartphone .classic-toolbar-visible .window-content, .abs.below-toolbar { top: @mobile-toolbar-height; }
+.classic-toolbar-visible .window-content, .abs.below-toolbar { top: @toolbar-height; }
+
+.bottom-toolbar.bottom-toolbar-visible .window-content { bottom: @toolbar-height; }
+.chromeless-window .window-body:not(.mobile-toolbar-visible) { bottom: 0;}
+.chromeless-window .window-body.mobile-toolbar-visible { bottom: @mobile-toolbar-height; }
+.chromeless-window.header-bottom .window-body:not(.mobile-toolbar-visible) { bottom: 64px; }
+
+.smartphone .mobile-navbar {
+    height: @mobile-toolbar-height;
+}
+
+.classic-toolbar, .mobile-navbar {
+
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: @toolbar-height;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    margin: 0;
+    padding: 0;
+    .user-select(none);
+
+    & > li {
+
+        list-style: none;
+        display: inline-block;
+        padding: 0;
+        float: left; // to support pull-right while keeping items in-order (a11y)
+        height: 100%;
+
+        & > a, & > button {
+
+            height: 100%;
+            display: inline-block;
+            line-height: @toolbar-line-height - 2;
+            padding: @toolbar-vertical-padding @default-padding;
+            text-decoration: none;
+            float: left;
+            outline: 0;
+
+            i { text-decoration: none; }
+            &:focus { background-color: #eee; text-decoration: none; }
+
+            &.disabled {
+                color: @toolbar-link-disabled-color;
+                cursor: not-allowed;
+            }
+            @media (max-width: 580px) {
+                // fix for phablets
+                padding: @toolbar-vertical-padding @default-padding - 2;
+            }
+        }
+        & > button {
+            font-size: 13px;
+            text-align:left;
+        }
+    }
+
+    & > li.pull-right {
+        float: right;
+        & > .dropdown-menu { right: 4px; }
+    }
+
+    .align-right > & {
+        display: flex;
+        /* "justify-content: flex-end" does not work as expected. Using margin-left */
+        li.align-left + li:not(.align-left) {
+            margin-left: auto;
+        }
+    }
+}
+
+/* introduce with 7.10.2 */
+.inline-toolbar {
+
+    padding: 0;
+    margin: 8px 8px 0 -8px;
+    // min height to avoid flicker
+    min-height: 32px;
+    clear: both;
+    .user-select(none);
+
+    & > li {
+        display: inline-block;
+        white-space: nowrap;
+        margin-right: 8px;
+        list-style-type: none;
+        > a {
+            padding: 4px 8px;
+            display: inline-block;
+            &:focus {
+                background: @brand-primary;
+                color: #fff;
+                outline: 0;
+                text-decoration: none;
+            }
+        }
+        a.disabled {
+            color: @toolbar-link-disabled-color;
+            cursor: not-allowed;
+        }
+    }
+
+    .fa-bars {
+        font-size: 14px;
+    }
+}
+
+// no top margin in sidepopups. There is enough space above already + causes unneeded scrollbar
+.io-ox-sidepopup-pane .inline-toolbar {
+    margin-top: 0;
+}
+
+.window-toolbar {
+
+    & > ul{ margin: 0; }
+
+    & > a {
+        color: @toolbar-link-color;
+        display: inline-block;
+        margin: 0 1em 0 0;
+        cursor: pointer;
+        white-space: nowrap;
+        text-decoration: none;
+        outline: 0;
+
+        &:hover { color: darken(@toolbar-link-color, 10%); }
+    }
+
+    .dropdown-menu {
+        text-align: left;
+
+        a { margin-right: 0; }
+    }
+
+    .touch & a { outline: 0; }
+
+    .btn { font-size: 13px; }
+
+    .btn-group + .btn-group { margin-left: 15px; }
+
+    .btn-primary + .btn-primary { margin-left: 10px; }
+
+    a.btn-primary, a.btn-primary:hover {
+        color: white;
+        font-size: 13px;
+        line-height: 18px;
+        text-decoration: none;
+    }
+
+    a:hover,
+    a.button:hover { text-decoration: underline; }
+}
+
+//
+// Generic toolbar
+//
+.generic-toolbar {
+
+    @height-default: @toolbar-height;
+    @height-small: 30px;
+
+    position: absolute;
+
+    width: 100%;
+    height: @height-default;
+    padding: 0;
+    background-color: #fff;
+    border: 0 solid mix(@text-color, @background, 200%/15);
+
+    font-size: 14px;
+    line-height: @height-default - 1;
+
+    &.top {
+        top: 0;
+        border-bottom-width: 1px;
+    }
+
+    &.bottom {
+        bottom: 0;
+        border-top-width: 1px;
+        z-index: 1;
+    }
+
+    .toolbar-item {
+        color: #333;
+        display: inline-block;
+        float: left;
+        line-height: @height-default - 1;
+        padding: 0 @default-padding;
+        text-decoration: none;
+
+        .folder-up.fa-stack .fa-level-up {
+            -webkit-transform: scale(-1.2, 1) translate(4px, 0);
+            -ms-transform: scale(-1.2, 1) translate(4px, 0);
+            transform: scale(-1.2, 1) translate(4px, 0);
+        }
+    }
+
+    .io-ox-context-help {
+        float: right;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    &.visual-focus .toolbar-item {
+        outline: 0;
+
+        &:hover {
+            color: #555;
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        &:focus {
+            color: #fff;
+            background-color: @toolbar-focus-color;
+        }
+
+        &:focus > i { color: #fff; }
+    }
+
+    .toolbar-item.pull-right > .dropdown-menu { right: 4px; }
+
+    &.toolbar-small {
+        height: @height-small;
+        line-height: @height-small - 1;
+
+        .toolbar-item { line-height: @height-small - 1; }
+    }
+}
+
+.secondary-toolbar {
+    font-size: 13px;
+    overflow: hidden;
+}
+
+// small screens (mobile)
+// note that we have to target max-width and max-device-width
+// to target all devices which don't support the max-device-width
+// property
+@media(max-width: @smartphone-breakpoint) and (orientation: portrait), (max-height: @smartphone-breakpoint) and (orientation: landscape) {
+
+    .toolbar-button { margin: 0; }
+
+    #multi-select-toolbar .select-counter {
+        margin-left: 15px;
+        font-weight: bold;
+        color: #aaa;
+    }
+}

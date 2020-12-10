@@ -1,0 +1,1 @@
+define("io.ox/core/pdf/pdfsimplelinkservice",[],function(){"use strict";return function(){function n(){}return n.prototype={get pagesCount(){return 0},navigateTo:function(){},getDestinationHash:function(){return"#"},getAnchorUrl:function(){return"#"},setHash:function(){},executeNamedAction:function(){},cachePageRef:function(){}},n}()});

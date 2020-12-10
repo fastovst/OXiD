@@ -1,0 +1,75 @@
+/**
+ * This work is provided under the terms of the CREATIVE COMMONS PUBLIC
+ * LICENSE. This work is protected by copyright and/or other applicable
+ * law. Any use of the work other than as authorized under this license
+ * or copyright law is prohibited.
+ *
+ * http://creativecommons.org/licenses/by-nc-sa/2.5/
+ *
+ * © 2016 OX Software GmbH, Germany. info@open-xchange.com
+ *
+ * @author Viktor Pracht <viktor.pracht@open-xchange.com>
+ * @author Frank Paczynski <frank.paczynski@open-xchange.com>
+ */
+
+ul.io-ox-portal-birthdays .cake {
+    padding-right: 4px;
+    display: inline-block;
+    font-weight: bold;
+}
+
+.io-ox-portal-birthdays {
+    li {
+        position: relative;
+        padding-left: 48px;
+        .picture {
+            position: absolute;
+            left: 0;
+            .picture(32px, 32px);
+            .flex-center;
+            color: rgba(0, 0, 0, 0.70);
+            background-color: #eee;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        &.no-padding { padding-left: 0; }
+    }
+}
+
+div.io-ox-portal-birthdays {
+
+    h1 {
+        font-family: @light-font-family;
+        font-weight: 300;
+        font-size: 20pt;
+        line-height: 1.15em;
+        margin: 0 0 0.5em 0;
+    }
+
+    .buy-a-gift {
+        text-align: right;
+        margin: 0.5em 0 0.5em 0;
+    }
+
+    .birthday {
+        min-height: 48px;
+        margin-bottom: 13px;
+        clear: both;
+        cursor: pointer;
+        .name { font-weight: bold; }
+
+        .picture {
+            float: left;
+            margin-right: 13px;
+            display: inline-block;
+            .picture(48px, 48px);
+        }
+
+        .distance {
+            color: #888;
+            font-family: @light-font-family;
+            display: inline-block;
+            margin-left: 0.5em;
+        }
+    }
+}

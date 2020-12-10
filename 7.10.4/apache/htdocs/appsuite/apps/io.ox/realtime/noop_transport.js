@@ -1,0 +1,1 @@
+define("io.ox/realtime/noop_transport",["io.ox/core/event"],function(n){"use strict";var e={send:$.noop,sendWithoutSequence:$.noop,query:function(){return $.when()},protocol:"noop",hasPendingAcks:function(){return!1}};return n.extend(e),e});

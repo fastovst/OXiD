@@ -1,0 +1,1 @@
+define("io.ox/notes/settings/defaults",[],function(){"use strict";return{}});

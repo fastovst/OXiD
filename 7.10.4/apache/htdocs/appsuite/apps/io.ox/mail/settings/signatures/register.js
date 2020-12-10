@@ -1,0 +1,1 @@
+define("io.ox/mail/settings/signatures/register",["io.ox/core/extensions","io.ox/core/capabilities","gettext!io.ox/mail"],function(i,e,t){"use strict";e.has("guest")||i.point("io.ox/settings/pane/main/io.ox/mail").extend({id:"io.ox/mail/settings/signatures",title:t(_.device("smartphone")?"Signature":"Signatures"),ref:"io.ox/mail/settings/signatures",index:200})});

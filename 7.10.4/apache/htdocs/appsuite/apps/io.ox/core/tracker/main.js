@@ -1,0 +1,1 @@
+define("io.ox/core/tracker/main",["io.ox/core/tracker/api","io.ox/core/tracker/duration","settings!io.ox/core"],function(e,o,r){"use strict";e.add("browser"),e.add("unique",{id:ox.context_id+"/"+ox.user_id}),r.get("tracker/eyeballtime",!0)&&o.start()});

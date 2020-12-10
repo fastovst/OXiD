@@ -1,0 +1,1 @@
+define("io.ox/mail/compose/actions",["io.ox/backbone/views/actions/util","io.ox/core/download"],function(o,i){"use strict";new o.Action("io.ox/mail/compose/actions/download",{device:"!ios || ios >= 12",collection:"some",action:function(o){i.composeAttachment(o.first())}})});

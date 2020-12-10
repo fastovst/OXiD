@@ -1,0 +1,1 @@
+define("io.ox/contacts/settings/model",["settings!io.ox/contacts"],function(t){"use strict";return Backbone.Model.extend({initialize:function(){},saveAndYell:function(n,e){return t.saveAndYell(n,e)},save:function(){return t.save(this.attributes)},destroy:function(){}})});

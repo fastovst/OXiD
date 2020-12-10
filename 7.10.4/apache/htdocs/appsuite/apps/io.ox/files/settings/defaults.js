@@ -1,0 +1,1 @@
+define("io.ox/files/settings/defaults",function(){"use strict";return{view:"fluid:icon",videoEnabled:!0,audioEnabled:!0,rootFolderId:9,showHidden:!1,uploadHandling:"announceNewVersion",autoplayPause:5,autoplayLoopMode:"loopEndlessly"}});

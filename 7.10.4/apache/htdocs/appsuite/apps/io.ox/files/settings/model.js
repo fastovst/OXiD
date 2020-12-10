@@ -1,0 +1,1 @@
+define("io.ox/files/settings/model",["settings!io.ox/files"],function(e){"use strict";return Backbone.Model.extend({initialize:function(){},save:function(){e.save(this.attributes)},saveAndYell:function(){e.saveAndYell(this.attributes)},destroy:function(){console.log("destroy in model.js")}})});

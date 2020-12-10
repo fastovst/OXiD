@@ -1,0 +1,1 @@
+define("io.ox/rss/settings/defaults",function(){"use strict";return{needsMigration:!0}});

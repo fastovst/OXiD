@@ -1,0 +1,15 @@
+[ox-appsuiteui]
+name=Open-Xchange-appsuiteui
+baseurl=http://software.open-xchange.com/products/appsuite/7.10.4/appsuiteui/RHEL7/
+gpgkey=http://software.open-xchange.com/oxbuildkey.pub
+enabled=1
+gpgcheck=1
+metadata_expire=0m
+
+[ox-backend]
+name=Open-Xchange-backend
+baseurl=http://software.open-xchange.com/products/appsuite/7.10.4/backend/RHEL7/
+gpgkey=http://software.open-xchange.com/oxbuildkey.pub
+enabled=1
+gpgcheck=1
+metadata_expire=0m

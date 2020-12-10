@@ -1,0 +1,511 @@
+/**
+ * This work is provided under the terms of the CREATIVE COMMONS PUBLIC
+ * LICENSE. This work is protected by copyright and/or other applicable
+ * law. Any use of the work other than as authorized under this license
+ * or copyright law is prohibited.
+ *
+ * http://creativecommons.org/licenses/by-nc-sa/2.5/
+ *
+ * © 2016 OX Software GmbH, Germany. info@open-xchange.com
+ *
+ * @author Christoph Hellweg <christoph.hellweg@open-xchange.com>
+ */
+
+@weekview-time-widthSmall: @weekview-time-width - 13;
+
+.weekview-container {
+
+    * { -webkit-tap-highlight-color: rgba(0,0,0,0); }
+
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .header {
+
+        .cw {
+            font-size: 14px;
+            color: @hc-gray;
+            font-weight: normal;
+        }
+
+        .merge-split {
+            margin-top: 4px;
+        }
+    }
+
+    .weekview-toolbar {
+        height: 50px;
+        padding-top: 10px;
+        margin-left: @weekview-time-width;
+        display: flex;
+        align-items: center;
+
+        .weekday {
+            flex: 1;
+
+            color: #767676;
+            text-align: left;
+            height: 26px;
+            line-height: 24px;
+            text-decoration: none;
+            padding: 2px 3px;
+            .ellipsis();
+            border: none;
+            background: none;
+
+            &.merge-view-label {
+                border-bottom: 2px solid;
+                margin-right: 1px;
+                margin-left: 1px;
+                padding-top: 6px;
+                height: 34px;
+            }
+
+            .number {
+                font-size: 20px;
+                font-weight: bold;
+                color: black;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+
+            &.today {
+                font-weight: bold;
+                color: @calendar-today;
+                background-color: transparent;
+
+                .number {
+                    color: @calendar-today;
+                }
+            }
+        }
+    }
+
+    .fulltime-container {
+        min-height: 21px;
+        display: flex;
+        margin-top: 5px;
+
+
+        .time-label-bar {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+
+            height: 100%;
+            width: @weekview-time-width;
+
+            > div {
+                flex: 1;
+                padding-right: 10px;
+                margin-bottom: 2px;
+                text-align: right;
+            }
+
+            > .timezone-label-dropdown { padding-right: 11px; }
+        }
+
+        .appointment-panel {
+            flex: 1;
+            position: relative;
+            .overflow-y(scroll);
+            .overflow-x(hidden);
+        }
+
+        .note {
+            position: absolute;
+            background: none;
+            width: 100%;
+            font-size: 12px;
+            font-weight: 200;
+            color: #767676;
+            text-align: right;
+            .ellipsis();
+            .user-select(none);
+            padding: 0 10px;
+        }
+
+        .day { border: none; }
+
+        .appointment .appointment-content {
+            padding: 0 4px;
+            line-height: 20px;
+        }
+        .appointment:focus {
+            //increase z-index so box shadow is shown fully
+            z-index: 1;
+        }
+    }
+
+    .appointment-container {
+        flex: 1;
+        position: relative;
+        margin-top: 16px;
+
+        .appointment {
+            // same as minCellHeight in view minus border
+            min-height: 24px - 2px;
+
+            &.resizing {
+                left: 0!important;
+                width: 100%!important;
+            }
+        }
+
+        .scrollpane, .hidden-appointment-indicator-container {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+        }
+
+        .scrollpane {
+            .overflow-y(scroll);
+            .overflow-x(hidden);
+            border-top: 1px solid @weekview-border;
+            outline: 0;
+            display: flex;
+
+            > .current-time-indicator {
+                left: @weekview-time-width;
+            }
+
+            .week-container-label {
+                flex: 0 0 auto;
+                display: flex;
+                flex-direction: column;
+                width: @weekview-time-width;
+
+                .time {
+                    flex: 1;
+                    position: relative;
+                    margin-left: 1em;
+                    border-bottom: 1px solid @weekview-border;
+                    color: #757575;
+
+                    &.working-time-border { border-bottom: 1px solid @weekview-working-time-border; }
+
+                    &.in {
+                        font-weight: bold;
+                        color: #333;
+                    }
+
+                    .number {
+                        font-size: 12px;
+                        position: absolute;
+                        top: 4px;
+                        right: 10px;
+                    }
+
+                    &:last-child { border-color: transparent; }
+
+                }
+
+                &.secondary-timezone .time.in {
+                    font-weight: normal;
+                    color: #767676;
+                }
+            }
+        }
+
+        .day {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+
+            border-left: 1px solid @weekview-border;
+            position: relative;
+            .user-select(none);
+
+            .timeslot {
+                flex: 1;
+                -webkit-touch-callout: none !important;
+                border-bottom: 1px solid @weekview-border-light;
+                height: 24px;
+
+                &.out { border-color: transparent; background-color: rgba(0, 0, 0, 0.02); }
+
+                &:last-child, .time:last-child { border-color: transparent; }
+
+                &.working-time-border { border-bottom: 1px solid @weekview-working-time-border; }
+            }
+
+            &.today .timeslot { background-color: @calendar-today-background; }
+
+        }
+
+        &.time-scale-1 {
+            .day .timeslot:not(.working-time-border) {
+                border-color: @weekview-border;
+                &.out { border-color: @weekview-border; }
+            }
+        }
+
+        &.time-scale-2 {
+            .day .timeslot:nth-child(2n):not(.working-time-border) {
+                border-color: @weekview-border;
+                &.out { border-color: @weekview-border; }
+            }
+        }
+
+        &.time-scale-3 {
+            .day .timeslot:nth-child(3n):not(.working-time-border) {
+                border-color: @weekview-border;
+                &.out { border-color: @weekview-border; }
+            }
+        }
+
+        &.time-scale-4 {
+            .day .timeslot:nth-child(4n):not(.working-time-border) {
+                border-color: @weekview-border;
+                &.out { border-color: @weekview-border; }
+            }
+        }
+
+        &.time-scale-6 {
+            .day .timeslot:nth-child(3n):not(.working-time-border) {
+                border-color: @weekview-border;
+                &.out { border-color: @weekview-border; }
+            }
+        }
+
+        &.time-scale-12 {
+            .day .timeslot:nth-child(3n):not(.working-time-border) {
+                border-color: @weekview-border;
+                &.out { border-color: @weekview-border; }
+            }
+        }
+
+        .current-time-indicator {
+            position: absolute;
+            height: 0;
+            left: 0;
+            right: 0;
+            border-bottom: 2px solid @calendar-today;
+            z-index: 10;
+            .user-select(none);
+            pointer-events: none;
+        }
+
+        .hidden-appointment-indicator-container {
+            left: @weekview-time-width;
+
+            right: 12px; //assume scrollbars are around 12px width. It's not browser independent, but a good guess. Needed to center indicators
+            pointer-events: none;
+
+            .more-appointments {
+                position: absolute;
+                text-align: center;
+                opacity: 0.5;
+
+                &.earlier {
+                    top: 0px;
+                }
+                &.later {
+                    bottom: 0px;
+                }
+            }
+        }
+    }
+
+    .no-select .appointment {
+        pointer-events: none;
+    }
+
+    .appointment {
+        position: absolute;
+        background-color: @appointment-reserved;
+        opacity: 1;
+        .transition(~"opacity 0.2s, background-color 0.2s, color 0.2s");
+        .backface-visibility(hidden);
+        // see Bug 32753 - Not possible to reduce an appointment to 30 minutes using drag&drop
+        box-sizing: content-box;
+
+        &.resizing {
+            opacity: 0.7;
+            z-index: 5000;
+            box-shadow: initial;
+            .user-select(none);
+        }
+
+        &.no-wrap {
+            .appointment-content {
+                display: flex;
+                & > .location {
+                    flex: 2 1;
+                    margin-left: 4px;
+                }
+            }
+        }
+
+        &.modify { cursor: pointer; }
+
+        &.border {
+            @border: 1px solid rgba(0, 0, 0, 0.2);
+            border-top: @border;
+            border-right: @border;
+            border-bottom: @border;
+        }
+
+        &.current, &.hover {
+            z-index: 999 !important;
+            .transition(background-color 0.2s);
+        }
+
+        .private-flag, .confidential-flag, .tentative-flag {
+            float: left;
+            font-size: 15px;
+            margin-right: 3px;
+        }
+
+        .appointment-content {
+            height: 100%;
+            font-size: 12px;
+            line-height: 16px;
+            padding: 4px;
+            border-left: 2px solid;
+            border-color: inherit;
+            .ellipsis();
+
+            * { .ellipsis(); }
+
+            .flags {
+                display: block;
+                text-align: end;
+                font-size: 11px;
+                opacity: 0.70;
+                line-height: 1em;
+
+                span {
+                    margin-left: 4px;
+                }
+
+                &.bottom-right {
+                    position: absolute;
+                    bottom: 4px;
+                    right: 4px;
+                }
+            }
+        }
+    }
+
+    .lasso {
+        position: absolute;
+        border: 1px solid #08c;
+        background-color: @weekview-appointment-lasso;
+        opacity: 0.4;
+        width: 100%;
+        cursor: default;
+        pointer-events: none;
+    }
+
+    .io-ox-busy .resizable-handle {
+        display: none;
+    }
+
+    // Resize bars
+    .resizable-handle {
+        position: absolute;
+        font-size: 0.1px;
+        display: block;
+    }
+
+    .resizable-n {
+        cursor: n-resize;
+        height: 7px;
+        width: 100%;
+        top: -3px;
+        left: 0;
+    }
+
+    .resizable-s {
+        cursor: s-resize;
+        height: 7px;
+        width: 100%;
+        bottom: -3px;
+        left: 0;
+    }
+
+    .resizable-e {
+        cursor: e-resize;
+        width: 7px;
+        right: 0;
+        top: 0;
+        height: 100%;
+    }
+
+    .resizable-w {
+        cursor: w-resize;
+        width: 7px;
+        left: 0;
+        top: 0;
+        height: 100%;
+    }
+
+    @media (min-width: 1281px) {
+        @adjusted-width: @weekview-time-width * 1.25;
+
+        .weekview-toolbar { margin-left: @adjusted-width; }
+
+        .fulltime-container .time-label-bar { width: @adjusted-width; }
+
+        .appointment-container .scrollpane .week-container-label { width: @adjusted-width; }
+        .appointment-container .scrollpane.secondary .week-container-label { width: @weekview-time-width; }
+
+        .appointment-container .hidden-appointment-indicator-container { left: @adjusted-width; }
+        .appointment-container .scrollpane > .current-time-indicator { left: @adjusted-width; }
+    }
+
+    // Mobile
+    .smartphone & {
+
+        .info { cursor: auto; }
+
+        .weekview-toolbar { display: none; }
+
+        .fulltime-container { margin: 0; margin-left: @weekview-time-widthSmall; min-height: auto; }
+        .appointment-container { margin-top: 0; }
+        .more-appointments-container { left: @weekview-time-widthSmall; }
+
+        .scrollpane {
+
+            .week-container-label {
+                width: @weekview-time-widthSmall;
+
+                .time { margin-left: 0.3em; }
+            }
+        }
+
+        .dayview:not(.merge-view) .week-view-container { top: 0; }
+    }
+
+}
+
+.timezone-label-dropdown {
+    .timezone-abbr {
+        display: inline-block;
+        width: 3em;
+    }
+
+    .offset {
+        color: #767676;
+        display: inline-block;
+        width: 3.5em;
+    }
+
+    &.double {
+        .timezone-abbr {
+            width : 6em;
+        }
+        .offset {
+            width : 7em;
+        }
+    }
+
+    a:focus .offset{ color: inherit };
+}

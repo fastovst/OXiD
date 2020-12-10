@@ -1,0 +1,955 @@
+/**
+ * This work is provided under the terms of the CREATIVE COMMONS PUBLIC
+ * LICENSE. This work is protected by copyright and/or other applicable
+ * law. Any use of the work other than as authorized under this license
+ * or copyright law is prohibited.
+ *
+ * http://creativecommons.org/licenses/by-nc-sa/2.5/
+ *
+ * © 2016 OX Software GmbH, Germany. info@open-xchange.com
+ *
+ * @author Matthias Biggeleben <matthias.biggeleben@open-xchange.com>
+ * @author David Bauer <david.bauer@open-xchange.com>
+ */
+
+// app
+
+.window-content-top {
+    display: none;
+    position: absolute;
+    top: 0;
+    z-index: 10;
+    width: 100%;
+}
+
+// file list view
+
+.file-list-view, .myshares-list, .myfavorites-list {
+
+    .notification {
+        min-width: 100%;
+    }
+    //
+    // Column layout
+    //
+
+    &.column-layout .list-item {
+        line-height: 20px;
+        padding: 2px 16px 2px 42px;
+        border-bottom: 0;
+        &:not(.selected):nth-child(odd) { background-color: #f5f5f5; }
+    }
+
+    &.column-layout.hide-checkboxes .list-item { padding-left: 16px; }
+
+    &.column-layout .list-item-content {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    .list-item-column {
+        display: table-cell;
+        vertical-align: middle;
+        padding: 0;
+        white-space: nowrap;
+        &.column-1 { width: 30px; padding-right: 10px; }
+        &.column-2 { width: 70%; padding-right: 10px; }
+        &.column-3 { width: 120px; padding-right: 10px; text-align: right; }
+        &.column-4 { width: 120px; text-align: right; }
+    }
+
+    .list-item-content.attachment-view {
+        .list-item-column {
+            &.column-2 { width: 40%; padding-right: 10px; }
+            &.column-5 { width: 30%; padding-right: 10px; text-align: left; }
+        }
+    }
+
+    &.visible-selection.has-focus .list-item.selected i { color: rgba(255, 255, 255, 0.50); }
+
+    .list-item .list-item-checkmark .fa-checkmark { top: 10px; }
+
+    &.column-layout {
+        .list-item .list-item-checkmark .fa-checkmark { top: 3px; }
+
+        .filename,.subject, .from { .ellipsis(); }
+    }
+    @media all and (max-width: @smartphone-breakpoint), all and (max-device-width: @smartphone-breakpoint) {
+        &.column-layout .list-item { line-height: 40px; }
+        &.column-layout, &.grid-layout, &.icon-layout {
+            .list-item { font-size: 15px; }
+        }
+
+        &.column-layout .list-item .list-item-checkmark .fa-checkmark {
+            top: 14px;
+        }
+    }
+}
+
+//:not(.icon-layout):not(.tile-layout) {
+//    .file-type-icon {
+//        &:before {
+//            color: #767676;
+//        }
+//    }
+//}
+.file-type-icon {
+    font-size: 14px;
+    width: 16px;
+    text-align: center;
+
+    &:before {
+        content: '\f016';                                             // default: fa-file-o
+        color: #767676;
+    }
+    .file-type-image  &:before { content: '\f03e'; }                  // fa-image
+    .file-type-audio  &:before { content: '\f028'; }                  // fa-volume-up
+    .file-type-video  &:before { content: '\f008'; }                  // fa-film
+    .file-type-doc    &:before { content: '\f0f6'; color: #376CB8; }  // fa-file-text-o
+    .file-type-xls    &:before { content: '\f0ce'; color: #26935D; }  // fa-table
+    .file-type-ppt    &:before { content: '\f022'; color: #F4502A; }  // fa-list-alt
+    .file-type-pdf    &:before { content: '\f1c1'; color: #C01E07; }  // fa-file-pdf-o
+    .file-type-zip    &:before { content: '\f187'; color: #FF940A; }  // fa-archive
+    .file-type-svg    &:before { content: '\f1c9'; color: #F4502A; }  // fa-file-code-o
+    .file-type-txt    &:before { content: '\f0f6'; }                  // fa-edit
+    .file-type-guard  &:before { content: '\f023'; }                  // fa-lock
+    .file-type-folder &:before { content: '\f07b'; color: #808080; }  // fa-folder - 4% reduced luminance compared to the file-type-icon to compensate the percived grey value (filled vs. outline) a bit
+}
+
+.file-list-view, .myshares-list, .myfavorites-list {
+
+    &.visible-selection.has-focus .list-item.selected .file-type-icon:before { color: white; }
+
+    &:not(.grid-layout):not(.tile-layout) {
+        > li.list-item {
+            + .tooltip {
+                display: none !important;
+            }
+        }
+    }
+
+    //
+    // Grid layout
+    //
+
+    &.grid-layout {
+
+        padding: @default-padding 0 0 @default-padding;
+
+        > li.list-item {
+            padding: 0;
+            display: inline-block;
+            border: solid white;
+            border-width: 0 @default-padding @default-padding 0;
+            overflow: hidden;
+            float: left;
+
+            //+ .tooltip {
+            //    display: none !important; // has to be used that way since the jQuey tooltip needs to be partly overruled.
+            //}
+        }
+        &.icon-layout,
+        &.tile-layout {
+            > li.list-item {
+                &.selected {
+
+                    + .tooltip {
+                        display: none;
+                    }
+                    &:hover {
+                        + .tooltip {
+                            display: inherit !important; // has to be used that way since the jQuey tooltip needs to be partly overruled.
+                        }
+                    }
+                }
+            }
+        }
+        &.icon-layout,
+        &.tile-layout {
+            > li.list-item {
+                border-width: 0 @default-padding (@default-padding - @base-padding) 0;
+
+                .tooltip {
+                    display: inherit !important; // has to be used that way since the jQuey tooltip needs to be partly overruled.
+
+                    padding: 0 5px;
+                    margin-top: 16px;
+
+                    &.right {
+                        margin-left: -18px;
+                    }
+                    &.left {
+                        margin-left: 2px;
+                    }
+
+                    &.bottom {
+                        margin-top: -76px;
+                        margin-left: -8px;
+                        max-width: 100%;
+                        width: auto;
+
+                        .tooltip-arrow {
+                            z-index: -1;
+                            top: -5px;
+                            //box-shadow: 0 0 7px #fff;
+                            //box-shadow: 0 0 7px 0 #fff;
+                        }
+                        //.tooltip-inner {
+                        //    box-shadow: none;
+                        //}
+                    }
+                    .tooltip-inner {
+                      //max-width: 307px;
+                        max-width: 100%;
+                        padding: 4px 8px;
+                      //box-shadow: 0 0 7px 0 #fff;
+                    }
+                }
+            }
+        }
+        &.tile-layout {
+            > li.list-item {
+
+                + .tooltip {
+                    &.bottom {
+                        margin-top: -88px;
+
+                        .tooltip-arrow {
+                            display: none;
+                          //box-shadow: 0 0 7px 0 #fff;
+                        }
+                    }
+                    .tooltip-inner {
+                        box-shadow: 0 0 7px 0 #fff;
+                    }
+                }
+            }
+        }
+        //&.icon-layout {   // NOTE: keep this block until 1 week before release date.
+        //  //
+        //  //                                                      // due to an additional hidden 1st node within a grid
+        //  //  &[grid-count="5"] > li.list-item:nth-child(5n-2),   // ... 5n-2 instead of 5n-3 // with: [grid-count="5"]
+        //  //  &[grid-count="4"] > li.list-item:nth-child(4n-2),   // ... 4n-2 instead of 4n-3 // with: [grid-count="4"]
+        //  //  &[grid-count="4"] > li.list-item:nth-child(4n-1),   // ... 4n-1 instead of 4n-2 // with: [grid-count="4"]
+        //  //  &[grid-count="3"] > li.list-item:nth-child(3n-1),   // ... 3n-1 instead of 3n-2 // with: [grid-count="3"]
+        //  //  &[grid-count="3"] > li.list-item:nth-child(3n),     // ... 3n   instead of 3n-1 // with: [grid-count="3"]
+        //  //  &[grid-count="2"] > li.list-item:nth-child(2n) {    // ... 2n   instead of 2n-1 // with: [grid-count="2"]
+        //  //
+        //  //      + .tooltip.left {
+        //  //          margin-left: 324px;
+        //  //          left: 0!important; // has to be used that way since the jQuey tooltip needs to be partly overruled.
+        //  //
+        //  //          //.tooltip.right .tooltip-arrow {
+        //  //          //    top: 50%;
+        //  //          //    left: 0;
+        //  //          //    margin-top: -5px;
+        //  //          //    border-width: 5px 5px 5px 0;
+        //  //          //    border-right-color: #000000;
+        //  //          //}
+        //  //          //
+        //  //          //.tooltip.left .tooltip-arrow {
+        //  //          //    top: 50%;
+        //  //          //    right: 0;
+        //  //          //    margin-top: -5px;
+        //  //          //    border-width: 5px 0 5px 5px;
+        //  //          //    border-left-color: #000000;
+        //  //          //}
+        //  //
+        //  //          .tooltip-arrow { // turn it into a ".right" tooltip
+        //  //              left: 0;
+        //  //              right: auto;
+        //  //              border-width: 5px 5px 5px 0;
+        //  //              border-right-color: #000000;
+        //  //            //border-left-color: transparent;
+        //  //          }
+        //  //      }
+        //  //  }
+        //  //  &[grid-count="4"] > li.list-item:nth-child(4n-1) {  // ... 4n-1 instead of 4n-2 // with: [grid-count="4"]
+        //  //      + .tooltip.left {
+        //  //          margin-left: 321px;
+        //  //      }
+        //  //  }
+        //  //  &[grid-count="4"] > li.list-item:nth-child(4n-2) {  // ... 4n-2 instead of 4n-3 // with: [grid-count="4"]
+        //  //      + .tooltip.left {
+        //  //          margin-left: 160px;
+        //  //      }
+        //  //  }
+        //  //  &[grid-count="3"] > li.list-item:nth-child(3n-1) {  // ... 3n-1 instead of 3n-2 // with: [grid-count="3"]
+        //  //      + .tooltip.left {
+        //  //          margin-left: 171px;
+        //  //      }
+        //  //  }
+        //  //  &[grid-count="3"] > li.list-item:nth-child(3n) {    // ... 3n   instead of 3n-1 // with: [grid-count="3"]
+        //  //      + .tooltip {
+        //  //          &.left {
+        //  //              margin-left: 344px;
+        //  //          }
+        //  //          .tooltip-inner {
+        //  //              max-width: 167px;
+        //  //          }
+        //  //      }
+        //  //  }
+        //  //  &[grid-count="2"] > li.list-item {
+        //  ////&[grid-count="1"] > li.list-item {
+        //  //      + .tooltip {
+        //  //          .tooltip-inner {
+        //  //              max-width: 167px;
+        //  //          }
+        //  //      }
+        //  //  }
+        //  //  &[grid-count="2"] > li.list-item:nth-child(2n) {    // ... 2n   instead of 2n-1 // with: [grid-count="2"]
+        //  //      + .tooltip.left {
+        //  //          margin-left: 194px;
+        //  //      }
+        //  //  }
+        //  //  &[grid-count="1"] > li.list-item {
+        //  //      + .tooltip {
+        //  //          display: none!important; // has to be used that way since the jQuey tooltip needs to be partly overruled.
+        //  //      }
+        //  //  }
+        //}
+
+        &.grid-1  > li { width: 100% /  1; }
+        &.grid-2  > li { width: 100% /  2; }
+        &.grid-3  > li { width: 100% /  3; }
+        &.grid-4  > li { width: 100% /  4; }
+        &.grid-5  > li { width: 100% /  5; }
+        &.grid-6  > li { width: 100% /  6; }
+        &.grid-7  > li { width: 100% /  7; }
+        &.grid-8  > li { width: 100% /  8; }
+        &.grid-9  > li { width: 100% /  9; }
+        &.grid-10 > li { width: 100% / 10; }
+        &.grid-11 > li { width: 100% / 11; }
+        &.grid-12 > li { width: 100% / 12; }
+    }
+
+    .thumbnail-support-structure(@height) {
+      //.thumbnail-effects-box,             // please do not remove this line.
+        .thumbnail-masking-box {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: @height;
+        }
+        .thumbnail-masking-box {
+            box-shadow: inset 0 0 4px #000;
+            opacity: .15;
+        }
+      //.thumbnail-effects-box {            // please do not remove this block.
+      //    background-color: #2f5984;
+      //    opacity: .3;
+      //    display:none;
+      //}
+    }
+
+    .thumbnail(@height) {
+        height: @height;
+        background-size: cover;
+        background-repeat: no-repeat;
+        // top is necessary for documents; images override this to "center center"
+        background-position: top center;
+        background-origin: border-box;
+    }
+
+    .busy-indicator(@height, @float: none) {
+        .busy-indicator {
+            padding-top: 40px;
+            height: @height;
+            border-bottom: 0;
+            float: @float;
+        }
+    }
+
+    &.icon-layout,
+    &.tile-layout {
+
+        .list-item {
+            &:not(.selected):not(.file-type-folder):not(.file-type-image):not(.file-type-doc):not(.file-type-xls):not(.file-type-ppt):not(.file-type-pdf):not(.file-type-txt) {
+
+                .icon-thumbnail {
+                    background-color: #f8f8f8;
+                }
+            }
+        }
+    }
+
+    &.icon-layout {
+
+        // width is > 120px, so assuming a 4/3 format, we're around 90px
+        // since it's not equal but more than 120px we add a bit (just looks better on average)
+        @thumbnail_width: 120px;
+        @thumbnail_height: 96px;
+        @filename_rows: 3;
+        @filename_line_height: 16px;
+        @filename_height: @filename_rows * @filename_line_height;
+        @filename_margin: 12px;
+        @height: @thumbnail_height + 2 * @filename_margin + @filename_height;
+
+        .list-item-content {
+            width: 100%;
+            height: @height - (1 * @base-padding);
+
+            .thumbnail-support-structure(@thumbnail_height);
+        }
+        .list-item.selectable:hover {
+            overflow: visible;
+
+            .list-item-content {
+              //box-shadow: 0 0 7px 0 #eee;     // please do not remove both blocks.
+
+                //.thumbnail-effects-box {
+                //    display: block;
+                //}
+                .filename {
+                    padding-top: ((@filename_line_height / 2) - 3px);
+                    margin-top: 1px;
+                    border-top: 2px solid #2f5984;
+                }
+            }
+        }
+
+        .icon-thumbnail {
+            .thumbnail(@thumbnail_height);
+          //background-color: transparent;
+        }
+
+        .icon-thumbnail.default-icon {
+            display: table;
+            width: 101%; // yep, 101, fixes layout glitch in chrome
+
+            .folder-name { display: none; }
+
+            .file-icon, .folder-icon {
+                display: table-cell;
+                text-align: center;
+                vertical-align: middle;
+
+                i.fa {
+                    font-size: 42px;
+                    width: auto;
+                }
+            }
+
+            .folder-icon i.fa:before {
+                color: #fff;
+                text-shadow: 0 0 1px #000;
+            }
+        }
+
+        .filename-file-icon {
+            position: absolute;
+            margin: (2 * @base-padding) 0 @filename_margin 0;
+            height: @filename_height;
+            line-height: @filename_line_height;
+            font-size: 14px;
+            top: auto;
+            left: 5px;
+        }
+
+        .filename {
+            line-height: @filename_line_height;
+            height: (@filename_height - (@filename_line_height / 2));
+            overflow: hidden;
+            margin: 0;
+            text-align: left;
+            padding: (@filename_line_height / 2) 5px 0 28px;
+            white-space: normal;
+            word-wrap: break-word;
+            word-break: break-all;
+        }
+
+        .busy-indicator(@thumbnail_height, left);
+
+        //
+        // Checkbox handling
+        //
+
+        .list-item-checkmark {
+            top: 56px;
+            height: 40px;
+            right: 0;
+            left: auto;
+            width: 46px;
+            z-index: 5; // chrome bug: checkmark can't be clicked, it's below the thumbnail when the thumb has opacity due to selection
+
+            .fa-checkmark {
+              //color: #fdfdfd;
+                color: #fff;
+                text-shadow: 0 0 2px #666;
+              //text-shadow: 0 0 1px #000;
+              //text-shadow: 0 0 3px #000;
+                &:before { content: '\f0c8'; } // empty square
+            }
+        }
+
+        li.selected .list-item-checkmark .fa-checkmark { color: #fff; }
+
+        .file-type-folder .list-item-checkmark .fa-checkmark {
+            color: #e6e6e6;
+          //color: #eee;
+          //color: #ccc;
+          //text-shadow: none;
+        }
+        .file-type-folder {
+
+            .icon-thumbnail {
+                background-color: #e6e6e6;
+              //background-color: #eee;
+            }
+            .filename-file-icon {
+                display: none;
+            }
+            .filename {
+                text-align: center;
+                padding-left: 5px;
+              //padding: (@filename_line_height / 2) 5px 0 5px;
+            }
+        }
+    }
+
+    &.tile-layout {
+
+        > li.list-item {
+
+            border-width: 0 @default-padding @default-padding 0;
+            overflow: visible;
+
+            + .tooltip {
+                display: inherit !important; // has to be used that way since the jQuey tooltip needs to be partly overruled.
+            }
+
+            &:hover:after {
+                content: "";
+                display: block;
+                position: absolute;
+                bottom: -3px;
+                left: 0;
+                width: 100%;
+                height: 2px;
+                background-color: #2f5984;
+            }
+        }
+
+        // width is > 160px, so assuming a 4/3 format, we're around 120px (see above)
+        @thumbnail_height: 128px;
+
+        .list-item-content {
+            width: 100%;
+            height: @thumbnail_height;
+
+            .thumbnail-support-structure(@thumbnail_height);
+        }
+
+        .icon-thumbnail {
+            .thumbnail(@thumbnail_height);
+            display: table;
+            width: 100%;
+            max-width: 100%;
+
+            .folder-name, .file-icon {
+                display: table-cell;
+                text-align: center;
+                vertical-align: middle;
+            }
+
+            .folder-name { color: #333; }
+
+            .file-icon i.fa {
+                font-size: 42px;
+                width: auto;
+            }
+        }
+
+        .file-type-folder {
+
+            .icon-thumbnail {
+                background-color: #e6e6e6;
+                table-layout: fixed;
+              //background-color: #eee;
+
+                .folder-name {
+                    width: 100%;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    padding: 10px;
+                }
+                .folder-icon {
+                    position: absolute;
+                    left: 14px;
+                    right: auto;
+                    top: auto;
+                    bottom: 6px;
+
+                    .file-type-icon {
+                        font-size: 21px;
+
+                        &:before {
+                            color: #fff;
+                            text-shadow: 0 0 1px #000;
+                        }
+                    }
+                }
+            }
+        }
+
+        .busy-indicator(@thumbnail_height, left);
+
+        //
+        // Checkbox handling
+        //
+
+        .list-item-checkmark {
+            top: 90px;
+            height: 40px;
+            right: 0;
+            left: auto;
+
+            .fa-checkmark {
+              //color: #fdfdfd;
+                color: #fff;
+                text-shadow: 0 0 2px #666;
+              //text-shadow: 0 0 1px #000;
+              //text-shadow: 0 0 3px #000;
+                &:before { content: '\f0c8'; } // empty square
+            }
+        }
+
+        .file-type-folder {
+
+            .list-item-checkmark {
+                .fa-checkmark {
+                    color: #e6e6e6;
+                  //color: #eee;
+                  //color: #ccc;
+                  //text-shadow: none;
+                }
+            }
+        }
+        //:not(.file-type-folder) {     // please do not remove this block - work in progress.
+        //
+        //    .list-item-checkmark {
+        //        .fa-checkmark {
+        //
+        //            &:before { content: '\f0c8'; } // empty square
+        //        }
+        //    }
+        //}
+
+        li.selected {
+
+            .list-item-checkmark {
+                .fa-checkmark {
+
+                    color: #fff;
+                }
+            }
+        }
+    }
+
+
+    //
+    // Selection handling
+    //
+
+    &.icon-layout {
+
+        .selected .icon-thumbnail { opacity: 0.70; }
+
+        &.has-focus .selected .icon-thumbnail {
+            background-color: darken(@selected-background, 15%);
+
+          //.folder-icon i.fa:before { color: rgba(0, 0, 0, 0.50); }
+        }
+    }
+
+    &.tile-layout {
+
+        .selected:not(.file-type-folder) .icon-thumbnail {
+            border: 2px solid #ddd;
+            box-shadow: 0 0 0 1px white inset;
+            opacity: .8;
+        }
+
+        .selected.file-type-folder .icon-thumbnail { background-color: #ddd; }
+
+        &.has-focus {
+            .selected .icon-thumbnail { border-color: @selected-background; }
+
+            .selected.file-type-folder .icon-thumbnail {
+                background-color: @selected-background;
+
+                .folder-name { color: white; }
+            }
+            > li.list-item.selected:not(.file-type-folder) {
+                &:hover {
+
+                    .icon-thumbnail {
+                      //box-shadow: 0 0 0 2px white inset;
+                        box-shadow: none;
+                      //border-color: #2f5984;
+                    }
+
+                    &:after {
+                        display: none;
+                      //bottom: -2px;
+                    }
+                }
+            }
+        }
+    }
+
+    // file lock
+    .locked { color: rgb(204, 0, 0); }
+
+    &.has-focus .selected .locked { color: #fff; }
+
+    // adjust thumbnail position for images
+    &.icon-layout,
+    &.tile-layout {
+        .file-type-image .icon-thumbnail { background-position: center center; }
+    }
+}
+
+.margin-bottom { bottom: 68px; }
+
+.upload-wrapper {
+    border-top: rgb(221, 221, 221) 1px solid;
+    background-color: white;
+    margin: 0;
+    padding: 10px 40px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    z-index: 1;
+    line-height: 1.42857143;
+
+    .upload-title {
+        margin-bottom: 8px;
+
+        .file-name,
+        .estimated-time {
+            white-space: nowrap;
+            font-weight: 300;
+            .ellipsis();
+        }
+
+        .estimated-time {
+            font-style: italic;
+        }
+    }
+
+    .upload-details,
+    .upload-cancel {
+        float: right;
+        margin-left: 10px;
+    }
+
+    .progress { margin: 0; }
+}
+
+.has-publications {
+    width: 27px;
+    height: 17px;
+    float: left;
+    padding-top: 7px;
+    margin-right: 0.5em;
+}
+
+.mobile-detail-view-wrap {
+    margin: 10px 10px 55px 10px;
+}
+
+.dndinfo { margin-top: 10px; }
+
+.vgrid-cell.file {
+    display: table-row;
+    padding-top: 3px;
+    padding-bottom: 3px;
+
+    .vgrid-cell-checkbox { padding-top: 9px; }
+
+    .name {
+        display: table-cell;
+        vertical-align: middle;
+        white-space: normal;
+        height: 3em;
+        line-height: 1em;
+      //word-break: break-word;
+
+        word-wrap: break-word;  // Note: - check back with David Bauer for any possible breaking effects
+        word-break: break-all;  //         changing the invalid line above to this block.
+    }
+}
+
+ul.breadcrumb li.prefix { white-space: nowrap; }
+
+.smartphone {
+    .toolbar .folder-up {
+         margin-left: 14px;
+    }
+
+    .file-list-view .list-item-column.column-2 { width: 100%; padding-right: 0; }
+
+    #window-content-top #inline-actions-ms {
+        margin: 0 30px 0 30px;
+
+        .summary { font-size: 12pt; }
+    }
+
+    .margin-bottom { bottom: 116px; }
+
+    .upload-wrapper {
+        margin-bottom: 45px;
+
+        .upload-title {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .estimated-time { display: none; }
+    }
+
+    body > .io-ox-dialog-wrapper .io-ox-dialog-popup {
+        top: 40px;
+        margin-top: 0;
+        width: auto;
+        overflow-y: auto;
+        bottom: 40px;
+        height: 100%;
+        max-height: 100%;
+
+        .modal-body {
+            max-height: auto;   // Note: - approach David Bauer for why there is an invalid property values used.
+                                //       - are there any breaking effects if it will be changed to a valid 'none' or 'initial' value.
+            .row textarea.col-lg-12 { max-height: 100px; }
+            .fileupload .uneditable-input { width: 130px; }
+        }
+        .modal-footer {
+            bottom: 0;
+            position: fixed;
+            left: 0;
+            right: 0;
+            padding: 0;
+
+            .row {
+                [class*="col-"] {
+                    margin-left: 0;
+                    float: left;
+                }
+
+                .btn {
+                    border: 0;
+                    border-radius: 0;
+                    margin: 0;
+                    height: 40px;
+                    width: 100%;
+                    padding: 0;
+                    line-height: 40px;
+                }
+
+                & > div { padding: 0; }
+            }
+        }
+    }
+}
+
+.guidance {
+    .files-sizes{
+        .breadcrumb{
+            margin: 0;
+            padding: 0;
+            background-color: transparent;
+            display: inline;
+        }
+    }
+}
+
+.io-ox-files-main .io-ox-dialog-popup .modal-body { overflow-x: hidden; }
+
+//io.ox/files/listview, io.ox/files/common-extensions
+.file-item {
+
+    .filename {
+        .ellipsis();
+        font-weight: 500;
+    }
+
+    .date {
+        font-weight: 300;
+        display: inline-block;
+        margin-left: 0.5em;
+        float: right;
+        opacity: 0.50;
+    }
+
+    .locked {
+        float: right;
+        color: rgb(204, 0, 0);
+    }
+
+    .size { color: rgb(119, 119, 119); }
+}
+
+.io-ox-files-main {
+
+    .leftside {
+        width: auto;
+        right: 0;
+    }
+
+    .has-rightside .leftside { right: 320px; }
+
+    .rightside {
+        width: 320px;
+        right: 0;
+        left: auto;
+    }
+
+    .viewer-sidebar {
+        padding: 0;
+        background-color: #f5f5f5;
+        font-size: 13px;
+
+        .viewer-sidebar-pane {
+            height: 100%;
+
+            .viewer-uploadnewversion label { color: #707070; }
+
+            &.thumbnail-pane { display: none; }
+        }
+
+        .wrapper { padding: 0 16px; }
+
+        .sidebar-panel-body { padding: 12px 0 5px 0; }
+
+        .sidebar-panel .sidebar-panel-heading { border-bottom: none; }
+
+        .sidebar-panel-thumbnail {
+
+            padding: 8px 0;
+            height: 176px;
+
+            .icon-thumbnail {
+                margin: 0 auto;
+                width: 100%;
+                height: 160px;
+                background-color: #eee;
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center center;
+                background-origin: border-box;
+            }
+        }
+    }
+}
+// filestorage conflicts dialog
+.filestorage-conflict-container {
+    padding-top: 16px;
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.filestorage-conflict-warning { padding-top: 8px; }
