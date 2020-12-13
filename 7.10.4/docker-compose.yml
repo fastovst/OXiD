@@ -10,23 +10,29 @@ services:
         aliases:
           - oxdb
         ipv4_address: 192.168.100.10
-    ports:
-      - "3306:3306"
+    expose:
+      - "3306"
     volumes:
       - "db_data:/var/lib/mysql/"
   app:
     depends_on:
       - db
     container_name: OX
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASS}
+      OPENEXCHANGE_USER_PASS: ${OPENEXCHANGE_USER_PASS}
+      OXADMINMASTER_USER_PASS: ${OXADMINMASTER_USER_PASS}
+      OXADMIN_PASS: ${OXADMIN_PASS}
+      OX_SERVER_MEMORY: ${OX_SERVER_MEMORY}
     build: ./appsuite
-    image: oxappsuite:{APP_TAG}
+    image: oxappsuite:${APP_TAG}
     networks:
       open-xchange:
         aliases:
           - ox
         ipv4_address: 192.168.100.20
-    ports:
-      - "8009:8009"
+    expose:
+      - "8009"
     volumes:
       - "ox_configs:/opt/open-xchange/etc"
   web:
