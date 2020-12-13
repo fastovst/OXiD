@@ -7,7 +7,9 @@
 #### Then you'll probably want to get into OX container's shell and do the following to be able to login and use the appsuite functionality:
 
 #### - register current server instance
-`./sbin/registerserver -A oxadminmaster -P "$OXADMINMASTER_USER_PASS" -n ox`
+```
+./sbin/registerserver -A oxadminmaster -P "$OXADMINMASTER_USER_PASS" -n ox
+```
 
 #### - register filestore for OX Drive
 ```
