@@ -1,6 +1,6 @@
 FROM httpd:2.4
 
-RUN apt update && apt upgrade -y && apt install -y net-tools telnet curl
+RUN apt update && apt upgrade -y
 
 WORKDIR /usr/local/apache2
 COPY configs/httpd.conf conf/httpd.conf
