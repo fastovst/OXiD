@@ -8,31 +8,31 @@ Then you'll probably want to get into OX container's shell and do the following 
 
 - register current server instance
 ```
-./sbin/registerserver -A oxadminmaster -P "$OXADMINMASTER_USER_PASS" -n ox
+./sbin/registerserver -A oxadminmaster -P "$OXADMINMASTER_PASS" -n oxapp
 ```
 
 - register filestore for OX Drive
 ```
-mkdir -p /var/opt/filestore && \
-chown open-xchange:open-xchange /var/opt/filestore
-./sbin/registerfilestore -A oxadminmaster -P "$OXADMINMASTER_USER_PASS" \
+sudo mkdir -p /var/opt/filestore && \
+sudo chown open-xchange:open-xchange /var/opt/filestore
+./sbin/registerfilestore -A oxadminmaster -P "$OXADMINMASTER_PASS" \
 -t file:/var/opt/filestore -s 5000000
 ```
 - register database for creating contexts
 ```
-./sbin/registerdatabase -A oxadminmaster -P "$OXADMINMASTER_USER_PASS" \
--n oxdatabase -u openexchange -p "$OPENEXCHANGE_USER_PASS" -m true -H oxdb
+./sbin/registerdatabase -A oxadminmaster -P "$OXADMINMASTER_PASS" \
+-n oxdatabase -u openexchange -p "$OPENEXCHANGE_PASS" -m true -H oxdb
 ```
 - create context
 ```
-./sbin/createcontext -A oxadminmaster -P "$OXADMINMASTER_USER_PASS" \
+./sbin/createcontext -A oxadminmaster -P "$OXADMINMASTER_PASS" \
 -c 1 -u oxadmin -d "Context Admin" -g Admin -s User \
--p "$OXADMIN_USER_PASS" -L defaultcontext -e oxadmin@example.com \
+-p "$OXADMIN_PASS" -L defaultcontext -e oxadmin@example.com \
 -q 1024 --access-combination-name=groupware_standard
 ```
 - create user
 ```
-./sbin/createuser -c 1 -A oxadmin -P "$OXADMINMASTER_USER_PASS" -u testuser \
+./sbin/createuser -c 1 -A oxadmin -P "$OXADMIN_PASS" -u testuser \
 -d "Test User" -g Test -s User -p secret -e testuser@example.com \
 --imaplogin testuser --imapserver 127.0.0.1 --smtpserver 127.0.0.1
 ```

@@ -20,8 +20,8 @@ services:
     container_name: OXAPP
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASS}
-      OPENEXCHANGE_USER_PASS: ${OPENEXCHANGE_USER_PASS}
-      OXADMINMASTER_USER_PASS: ${OXADMINMASTER_USER_PASS}
+      OPENEXCHANGE_USER_PASS: ${OPENEXCHANGE_PASS}
+      OXADMINMASTER_USER_PASS: ${OXADMINMASTER_PASS}
       OXADMIN_PASS: ${OXADMIN_PASS}
       OX_SERVER_MEMORY: ${OX_SERVER_MEMORY}
     build: ./appsuite
@@ -29,7 +29,7 @@ services:
     networks:
       open-xchange:
         aliases:
-          - ox
+          - oxapp
         ipv4_address: 192.168.100.20
     expose:
       - "8009"
@@ -42,7 +42,7 @@ services:
     networks:
       open-xchange:
         aliases:
-          - web
+          - oxweb
         ipv4_address: 192.168.100.30
     ports:
       - "8080:80"

@@ -7,7 +7,7 @@ do
 done
 
 sudo ./sbin/initconfigdb -a --configdb-pass="$OPENEXCHANGE_USER_PASS" \
---configdb-host=oxdb --mysql-root-passwd="$MYSQL_ROOT_PASS"
+--configdb-host=oxdb --mysql-root-passwd="$MYSQL_ROOT_PASSWORD"
 
 sudo ./sbin/oxinstaller --no-license --servername=ox \
 --configdb-pass="$OPENEXCHANGE_USER_PASS" --configdb-readhost=oxdb \

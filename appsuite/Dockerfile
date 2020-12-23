@@ -1,6 +1,6 @@
 FROM debian:buster
 
-RUN apt update && apt upgrade -y && apt install -y wget gnupg ca-certificates
+RUN apt update && apt upgrade -y && apt install -y wget gnupg ca-certificates sudo netcat
 RUN wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | apt-key add - && \
 wget -qO - http://software.open-xchange.com/oxbuildkey.pub | apt-key add -
 
