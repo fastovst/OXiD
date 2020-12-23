@@ -1,5 +1,0 @@
-{
-    "namespace": "core",
-    "device": "!smartphone",
-    "requires": "metrics-stopwatch"
-}

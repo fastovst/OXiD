@@ -1,1 +1,0 @@
-define("io.ox/filter/files",["io.ox/core/extensions","settings!io.ox/files"],function(i,e){"use strict";i.point("io.ox/files/filter").extend({id:"dot_files",isEnabled:function(){return!0!==e.get("showHidden",!1)},isVisible:function(i){return 0!==((i||{}).title||"").indexOf(".")}})});

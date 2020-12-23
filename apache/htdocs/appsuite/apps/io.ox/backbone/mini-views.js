@@ -1,1 +1,0 @@
-define("io.ox/backbone/mini-views",["io.ox/backbone/mini-views/abstract","io.ox/backbone/mini-views/common","io.ox/backbone/mini-views/date"],function(i,e,o){"use strict";return _.extend({AbstractView:i},e,o)});

@@ -1,1 +1,0 @@
-define("io.ox/core/main/debug",[],function(){var o=$.noop;return/\bcore/.test(_.url.hash("debug"))&&(o=function(){var o=_(arguments).toArray(),e=_.now()-ox.t0;o.unshift("core ("+(e/1e3).toFixed(1)+"s): "),console.log.apply(console,o)}),o});

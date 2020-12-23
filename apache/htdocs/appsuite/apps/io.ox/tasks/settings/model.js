@@ -1,1 +1,0 @@
-define("io.ox/tasks/settings/model",["settings!io.ox/tasks"],function(t){"use strict";return Backbone.Model.extend({initialize:$.noop,save:function(){t.save(this.attributes)},saveAndYell:function(){t.saveAndYell(this.attributes)},destroy:function(){console.log("destroy in model.js")}})});

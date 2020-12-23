@@ -1,1 +1,0 @@
-define("io.ox/messaging/services/api",["io.ox/core/http"],function(e){"use strict";return{all:function(){return e.GET({module:"messaging/service",params:{action:"all"}})},get:$.noop}});

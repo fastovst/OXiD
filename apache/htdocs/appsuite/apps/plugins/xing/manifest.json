@@ -1,8 +1,0 @@
-{
-    "namespace": "io.ox/core/main",
-    "title": "XING",
-    "settings": false,
-    "index": 100,
-    "path": "plugins/xing/main",
-    "requires": "xing xingjson"
-}

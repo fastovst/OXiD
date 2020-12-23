@@ -1,1 +1,0 @@
-define("io.ox/core/settingOptions/settings/defaults",function(){"use strict";return{}});

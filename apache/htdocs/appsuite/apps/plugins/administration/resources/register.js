@@ -1,1 +1,0 @@
-define("plugins/administration/resources/register",["io.ox/core/extensions","gettext!io.ox/core"],function(e,i){"use strict";e.point("io.ox/settings/pane").extend({id:"administration/resources",title:i("Resources"),ref:"plugins/administration/resources"})});

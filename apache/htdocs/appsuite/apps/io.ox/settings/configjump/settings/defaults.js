@@ -1,1 +1,0 @@
-define("io.ox/settings/configjump/settings/defaults",function(){"use strict";return{}});

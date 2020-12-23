@@ -1,1 +1,0 @@
-define("io.ox/core/sub/settings/register",["io.ox/core/extensions","io.ox/core/capabilities","gettext!io.ox/core/sub"],function(o,i,e){"use strict";var s=o.point("io.ox/settings/pane/tools"),t="io.ox/core/sub";s.extend({id:t,title:e("Subscriptions"),ref:"io.ox/core/sub",index:100}),i.has("subscription")||s.disable(t)});

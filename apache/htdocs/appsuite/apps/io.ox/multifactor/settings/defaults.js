@@ -1,1 +1,0 @@
-define("io.ox/multifactor/settings/defaults",[],function(){"use strict";return{allowMultiple:!0}});

@@ -1,1 +1,0 @@
-define("plugins/upsell/simple-wizard/settings/defaults",function(){"use strict";return{}});

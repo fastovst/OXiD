@@ -1,1 +1,0 @@
-define("io.ox/files/actions/versions-delete",["io.ox/files/api","io.ox/backbone/views/modal","gettext!io.ox/files"],function(e,o,t){"use strict";return function(n){new o({title:t.pgettext("One file only","Do you really want to delete this version?")}).addCancelButton().addButton({label:t("Delete version"),action:"delete"}).on("delete",function(){e.versions.remove(n)}).open()}});

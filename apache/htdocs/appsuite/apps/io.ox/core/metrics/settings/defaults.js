@@ -1,1 +1,0 @@
-define("io.ox/core/metrics/settings/defaults",function(){"use strict";return{}});

@@ -1,9 +1,0 @@
-[
-    {
-        "namespace": "core"
-    },
-    {
-        "namespace": "test",
-        "path": "plugins/halo/test"
-    }
-]

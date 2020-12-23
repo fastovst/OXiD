@@ -1,1 +1,0 @@
-define("io.ox/chat/socket",["io.ox/chat/data"],function(t){"use strict"});

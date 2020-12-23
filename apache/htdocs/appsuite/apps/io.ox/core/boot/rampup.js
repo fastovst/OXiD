@@ -1,1 +1,0 @@
-define("io.ox/core/boot/rampup",["io.ox/core/http","io.ox/core/extensions"],function(o,e){"use strict";e.point("io.ox/core/boot/rampup").extend([{id:"http_pause",fetch:function(){o.pause()}},{id:"http_resume",fetch:function(){return o.resume()}}])});
