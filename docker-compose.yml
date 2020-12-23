@@ -17,7 +17,7 @@ services:
   app:
     depends_on:
       - db
-    container_name: OX
+    container_name: OXAPP
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASS}
       OPENEXCHANGE_USER_PASS: ${OPENEXCHANGE_USER_PASS}
@@ -36,7 +36,7 @@ services:
     volumes:
       - "ox_configs:/opt/open-xchange/etc"
   web:
-    container_name: WEB
+    container_name: OXWEB
     build: ./apache  
     image: oxapache:${WEB_TAG}
     networks:
